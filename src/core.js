@@ -8,7 +8,7 @@ const x = (...args) => DEBUG && console.log(...args);
 
 const DEV_MODO = false; // usar FALSE para produccion
 
-const aplicarMetodosEstáticos = (nodoArray) => {
+const aplicarMetodos = (nodoArray) => {
   // evita usar proxy
   for (const nameMetodo of Object.keys(metodos)) {
     Object.defineProperty(nodoArray, nameMetodo, {
