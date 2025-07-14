@@ -16,7 +16,7 @@ export const metodos = Object.freeze({
   },
 
   off(ev,callback){
-    return this._forEach(el=>el.removeEventListener(ev,callback))
+    this._forEach(el=>el.removeEventListener(ev,callback))
   },
 
   css(style) {
