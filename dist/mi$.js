@@ -62,6 +62,7 @@ var mi$ = (function (exports) {
 
     off(ev,callback){
       this._forEach(el=>el.removeEventListener(ev,callback));
+      return this
     },
 
     css(style) {
