@@ -1,4 +1,4 @@
-var $ = (function (exports) {
+var mi$ = (function (exports) {
   'use strict';
 
   //ajax.js
@@ -93,47 +93,32 @@ var $ = (function (exports) {
       const elements = Array.from(document.querySelectorAll(selector));
 
       {
-        return new Proxy(elements, {
-          get(target, prop) {
-            if (prop in target) return target[prop];
-            if (prop in metodos) {
-              const fn = metodos[prop]();
-              Object.defineProperty(target, prop, {
-                value: fn,
-                writable: false,
-                configurable: false,
-                enumerable: false,
-              });
-
-              return fn;
-            }
-
-            return undefined;
-          },
-        });
+        // evita usar proxy
+        for (const key of Object.keys(metodos)) {
+          Object.defineProperty(elements, key, {
+            value: metodos[key](),
+            writable: false,
+            configurable: false,
+            enumerable: false,
+          });
+        }
       }
+
+      // Previene agregar nuevas propiedades
+      Object.freeze(elements);
+
+      return elements;
     }
 
     return [];
   };
 
-  // ejemplos practicos
-  $(".ctn-box")
-    .on("click", (e) => {
-    })
-    .css({
-      color: "orange",
-    });
-
-  $(".box").on("click", (e) => {
-  });
-
   // index.js
 
-  const $$1 = (selector) => mi$(selector);
+  const $ = (selector) => mi$(selector);
   window.$ = (selector) => mi$(selector);
 
-  exports.$ = $$1;
+  exports.$ = $;
 
   return exports;
 
