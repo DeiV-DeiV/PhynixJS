@@ -63,7 +63,7 @@ export const mi$ = (selector) => {
 
     return DEV_MODO
       ? crearProxyProtegido(elements)
-      : aplicarMetodosEstáticos(elements);
+      : aplicarMetodos(elements);
   }
 
   return [];
