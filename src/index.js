@@ -3,4 +3,3 @@ import { mi$ } from "./core.js";
 
 export const $ = (selector) => mi$(selector);
 window.$ = (selector) => mi$(selector)
-//hello
