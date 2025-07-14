@@ -3,4 +3,4 @@ import { mi$ } from "./core.js";
 
 export const $ = (selector) => mi$(selector);
 window.$ = mi$
-console.log('hola')
+console.log('usare main como rama principal')
