@@ -15,6 +15,8 @@ export const metodos = Object.freeze({
     return this;
   },
 
+  
+
   css(style) {
     this._forEach((ele) => Object.assign(ele.style, style));
     return this;
