@@ -108,6 +108,7 @@ var mi$ = (function (exports) {
 
   const $ = (selector) => mi$(selector);
   window.$ = (selector) => mi$(selector);
+  //hola desde index.js
 
   exports.$ = $;
 
