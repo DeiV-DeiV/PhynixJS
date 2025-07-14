@@ -3,80 +3,70 @@ var mi$ = (function (exports) {
 
   //ajax.js
 
-  function get() {
-    return async function (template) {
-      if (!template || typeof template !== "string") {
-        console.error("❌ mi$.html(): Ruta inválida.");
-        return this;
-      }
-      try {
-        const res = await fetch(`./components${template}.html`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const html = await res.text();
-        this._forEach((el) => (el.innerHTML += html));
-      } catch (error) {
-        console.error("❌ mi$.html(): Falló la carga del componente:", error);
-      }
+  async function get(template) {
+    if (!template || typeof template !== "string") {
+      console.error("❌ mi$.html(): Ruta inválida.");
       return this;
-    };
+    }
+    try {
+      const res = await fetch(`./components${template}.html`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const html = await res.text();
+      this._forEach((el) => (el.innerHTML += html));
+    } catch (error) {
+      console.error("❌ mi$.html(): Falló la carga del componente:", error);
+    }
+    return this;
   }
 
-  function post() {
-    return async function (template,body = {}) {
-      if (!template || typeof template !== "string") {
-        console.error("❌ mi$.html(): Ruta inválida.");
-        return this;
-      }
-
-      try {
-        const opts = Object.freeze({
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
-        });
-
-        const res = await fetch(`./components${template}.html`, opts);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const html = await res.text();
-        this._forEach((el) => (el.innerHTML += html));
-      } catch (error) {
-        console.error("❌ mi$.html(): Falló la carga del componente:", error);
-      }
+  async function post(template, body = {}) {
+    if (!template || typeof template !== "string") {
+      console.error("❌ mi$.html(): Ruta inválida.");
       return this;
-    };
+    }
+
+    try {
+      const opts = Object.freeze({
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      const res = await fetch(`./components${template}.html`, opts);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const html = await res.text();
+      this._forEach((el) => (el.innerHTML += html));
+    } catch (error) {
+      console.error("❌ mi$.html(): Falló la carga del componente:", error);
+    }
+    return this;
   }
 
   // dom.js
 
 
   const metodos = Object.freeze({
-    _forEach() {
-      return function (callback) {
-        for (let i = 0; i < this.length; i++) {
-          callback(this[i], i);
-        }
-        return this;
-      };
-    },
-
-    on() {
-      return function (ev, callback) {
-        this._forEach((ele) => ele.addEventListener(ev, callback));
-        return this;
-      };
-    },
-
-    css() {
-      return function(style){
-        this._forEach(ele => Object.assign(ele.style,style));
-        return this
+    _forEach(callback) {
+      for (let i = 0; i < this.length; i++) {
+        callback(this[i], i);
       }
+      return this;
+    },
+
+    on(ev, callback) {
+      this._forEach((ele) => ele.addEventListener(ev, callback));
+      return this;
+    },
+
+    css(style) {
+      this._forEach((ele) => Object.assign(ele.style, style));
+      return this;
     },
 
     get,
-    post
+    post,
   });
 
   // core.js
@@ -96,7 +86,7 @@ var mi$ = (function (exports) {
         // evita usar proxy
         for (const key of Object.keys(metodos)) {
           Object.defineProperty(elements, key, {
-            value: metodos[key](),
+            value: metodos[key],
             writable: false,
             configurable: false,
             enumerable: false,
@@ -106,6 +96,7 @@ var mi$ = (function (exports) {
 
       // Previene agregar nuevas propiedades
       Object.freeze(elements);
+      // Object.freeze(Persona.prototype);
 
       return elements;
     }
