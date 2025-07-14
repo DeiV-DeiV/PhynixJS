@@ -64,6 +64,10 @@ var mi$ = (function (exports) {
       this._forEach((ele) => Object.assign(ele.style, style));
       return this;
     },
+    html(html){
+      this._forEach(el => ele.innerHTML = html);
+      return this
+    },
 
     get,
     post,
