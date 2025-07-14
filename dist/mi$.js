@@ -60,7 +60,9 @@ var mi$ = (function (exports) {
       return this;
     },
 
-    
+    off(ev,callback){
+      return this._forEach(el=>el.removeEventListener(ev,callback))
+    },
 
     css(style) {
       this._forEach((ele) => Object.assign(ele.style, style));
