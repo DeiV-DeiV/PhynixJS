@@ -30,7 +30,7 @@ export const metodos = Object.freeze({
   },
 
   animate(animate = {}){
-
+    
   },
 
   get,

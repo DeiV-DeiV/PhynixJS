@@ -75,7 +75,7 @@ var mi$ = (function (exports) {
     },
 
     animate(animate = {}){
-
+      
     },
 
     get,
