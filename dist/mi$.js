@@ -73,7 +73,7 @@ var mi$ = (function (exports) {
       };
       const onMouseMove = function (e) {
           if(!isDraggable) return
-          currentX = e.cl;
+          currentX = e.clientX;
         UpdatePos();
       };
       const onMouseUp = function () {};
