@@ -24,6 +24,7 @@ export function drag() {
     const onMouseMove = function (e) {
         if(!isDraggable) return
         currentX = e.clientX - offsetX
+        currentX = e.clientX - offsetX
       UpdatePos();
     };
     const onMouseUp = function () {};
