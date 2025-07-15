@@ -75,7 +75,7 @@ var mi$ = (function (exports) {
     },
 
     animate(animate = {}){
-      this._forEach(el=>{});
+      this._forEach(el=>e);
     },
 
     get,
