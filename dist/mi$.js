@@ -57,6 +57,7 @@ var mi$ = (function (exports) {
       el.style.cursor = "grab";
       el.style.position = "relative";
       let isDraggable = false;
+      let offsetX = 0;
       let currentX = 0,
         currentY = 0;
 
@@ -66,14 +67,14 @@ var mi$ = (function (exports) {
 
       const onMouseDown = function (e) {
         isDraggable = true;
-        e.clientX - currentX;
+        offsetX = e.clientX - currentX;
         e.clientY - currentY;
         el.style.cursor = "grabbing";
         e.preventDefault();
       };
       const onMouseMove = function (e) {
           if(!isDraggable) return
-          currentX = e.clientX -of;
+          currentX = e.clientX -offsetX;
         UpdatePos();
       };
       const onMouseUp = function () {};
