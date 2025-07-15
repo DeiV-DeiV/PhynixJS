@@ -70,8 +70,7 @@ var mi$ = (function (exports) {
       this._forEach(el=>requestAnimationFrame(el));
     },
 
-    get,
-    post,
+    ...
     drag,
   });
 
