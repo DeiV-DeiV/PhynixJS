@@ -23,7 +23,7 @@ export function drag() {
     };
     const onMouseMove = function (e) {
         if(!isDraggable) return
-        currentX = e.clientX -se
+        currentX = e.clientX -of
       UpdatePos();
     };
     const onMouseUp = function () {};
