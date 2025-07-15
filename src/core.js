@@ -62,8 +62,7 @@ export const mi$ = (selector) => {
   if (typeof selector === "string") {
     const elements = Array.from(document.querySelectorAll(selector));
     console.log(elements)
-    const obj = Object.create(metodos)
-    console.log(obj)
+    
     return DEV_MODO
       ? crearProxyProtegido(elements)
       : aplicarMetodos(elements);

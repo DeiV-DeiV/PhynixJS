@@ -159,8 +159,7 @@ var mi$ = (function (exports) {
     if (typeof selector === "string") {
       const elements = Array.from(document.querySelectorAll(selector));
       console.log(elements);
-      const obj = Object.create(metodos);
-      console.log(obj);
+      
       return crearProxyProtegido(elements)
         ;
     }
