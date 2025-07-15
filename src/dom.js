@@ -1,6 +1,6 @@
 // dom.js
 
-import { get, post } from "./ajax.js";
+import * as ayax from "./ajax.js";
 import {drag} from "./effects.js"
 
 export const metodos = Object.freeze({
