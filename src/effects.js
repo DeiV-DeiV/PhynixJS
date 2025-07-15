@@ -29,7 +29,8 @@ export function drag() {
     };
     const onMouseUp = function () {
         isDraggable = false
-        
+    el.style.cursor = "grab";
+
     };
 
     el.addEventListener("mousedown", onMouseDown);
