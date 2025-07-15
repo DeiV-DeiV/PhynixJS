@@ -75,7 +75,7 @@ var mi$ = (function (exports) {
     },
 
     animate(animate = {}){
-      this._forEach(el=>requestAnimationFrame);
+      this._forEach(el=>requestAnimationFrame(el));
     },
 
     get,
