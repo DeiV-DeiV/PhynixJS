@@ -79,7 +79,9 @@ var mi$ = (function (exports) {
           currentY = e.clientY - offsetY;
         UpdatePos();
       };
-      const onMouseUp = function () {};
+      const onMouseUp = function () {
+          isDraggable = false;
+      };
 
       el.addEventListener("mousedown", onMouseDown);
       window.addEventListener("mousemove", onMouseMove);
