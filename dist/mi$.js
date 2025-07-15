@@ -82,7 +82,6 @@ var mi$ = (function (exports) {
       const onMouseUp = function () {
           isDraggable = false;
       el.style.cursor = "grab";
-
       };
 
       el.addEventListener("mousedown", onMouseDown);
