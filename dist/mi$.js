@@ -70,7 +70,7 @@ var mi$ = (function (exports) {
       return this;
     },
     html(html){
-      this._forEach(el => el.innerHTML = html);
+      this._forEach(el => el.innerHTML = html);  
       return this
     },
 
