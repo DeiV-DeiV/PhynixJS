@@ -75,7 +75,7 @@ var mi$ = (function (exports) {
       const onMouseMove = function (e) {
           if(!isDraggable) return
           currentX = e.clientX - offsetX;
-          current = e.clientX - offsetX;
+          currentY = e.clientX - offsetX;
         UpdatePos();
       };
       const onMouseUp = function () {};
