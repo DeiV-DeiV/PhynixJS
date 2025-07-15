@@ -6,7 +6,7 @@ import { metodos } from "./dom.js";
 const DEBUG = false;
 const x = (...args) => DEBUG && console.log(...args);
 
-const DEV_MODO = false; // usar FALSE para produccion
+const DEV_MODO = true; // usar FALSE para produccion
 
 const aplicarMetodos = (nodoArray) => {
   // evita usar proxy
@@ -20,7 +20,8 @@ const aplicarMetodos = (nodoArray) => {
   }
 
   // Previene agregar nuevas propiedades
-  return Object.freeze(nodoArray);
+  return nodoArray
+  // return Object.freeze(nodoArray);
   // Object.freeze(Persona.prototype);
 };
 
@@ -60,7 +61,9 @@ export const mi$ = (selector) => {
 
   if (typeof selector === "string") {
     const elements = Array.from(document.querySelectorAll(selector));
-
+    console.log(elements)
+    const obj = Object.create(metodos)
+    x(obj)
     return DEV_MODO
       ? crearProxyProtegido(elements)
       : aplicarMetodos(elements);

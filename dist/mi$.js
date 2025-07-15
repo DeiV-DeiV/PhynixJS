@@ -44,6 +44,41 @@ var mi$ = (function (exports) {
     return this;
   }
 
+  // effects.js
+
+  function drag() {
+    this._forEach((el) => {
+      el.style.cursor = "grab";
+      el.style.position = "relative";
+      let isDraggable = false;
+      let currentX = 0,
+        currentY = 0;
+
+      const UpdatePos = () => {
+        el.style.transform = `translate(${currentX}px, ${currentY}px)`;
+      };
+
+      const onMouseDown = function (e) {
+        isDraggable = true;
+        e.clientX - currentX;
+        e.clientY - currentY;
+        el.style.cursor = "grabbing";
+        e.preventDefault();
+      };
+      const onMouseMove = function (e) {
+          if(!isDraggable) return
+          
+        UpdatePos();
+      };
+      const onMouseUp = function () {};
+
+      el.addEventListener("mousedown", onMouseDown);
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("mouseup", onMouseUp);
+    });
+    return this;
+  }
+
   // dom.js
 
 
@@ -80,26 +115,42 @@ var mi$ = (function (exports) {
 
     get,
     post,
+    drag,
   });
 
   // core.js
   // consume menos memoria, mi punto es ese
 
 
-  const aplicarMetodos = (nodoArray) => {
-    // evita usar proxy
-    for (const nameMetodo of Object.keys(metodos)) {
-      Object.defineProperty(nodoArray, nameMetodo, {
-        value: metodos[nameMetodo],
-        writable: false,
-        configurable: false,
-        enumerable: false,
-      });
-    }
+  const DEBUG = false;
+  const x = (...args) => DEBUG;
 
-    // Previene agregar nuevas propiedades
-    return Object.freeze(nodoArray);
-    // Object.freeze(Persona.prototype);
+  const crearProxyProtegido = (nodoArray) => {
+    return new Proxy(nodoArray, {
+      get(target, prop) {
+        if (prop in target) return target[prop];
+        if (prop in metodos) {
+          const fn = metodos[prop];
+          Object.defineProperty(target, prop, {
+            value: fn,
+            writable: false,
+            configurable: false,
+            enumerable: false,
+          });
+
+          return fn;
+        }
+
+        return undefined;
+      },
+
+      set(target, prop, value) {
+        if (prop in metodos)
+          throw new Error(`No puedes sobreescribir el metodo ${prop}`);
+        target[prop] = value;
+        return true;
+      },
+    });
   };
 
   const mi$ = (selector) => {
@@ -110,8 +161,11 @@ var mi$ = (function (exports) {
 
     if (typeof selector === "string") {
       const elements = Array.from(document.querySelectorAll(selector));
-
-      return aplicarMetodos(elements);
+      console.log(elements);
+      const obj = Object.create(metodos);
+      x(obj);
+      return crearProxyProtegido(elements)
+        ;
     }
 
     return [];

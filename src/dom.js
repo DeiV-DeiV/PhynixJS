@@ -1,6 +1,7 @@
 // dom.js
 
-import { get, post } from "./ajax";
+import { get, post } from "./ajax.js";
+import {drag} from "./effects.js"
 
 export const metodos = Object.freeze({
   _forEach(callback) {
@@ -35,4 +36,5 @@ export const metodos = Object.freeze({
 
   get,
   post,
+  drag,
 });
