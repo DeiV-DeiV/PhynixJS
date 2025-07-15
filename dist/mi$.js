@@ -122,9 +122,6 @@ var mi$ = (function (exports) {
   // consume menos memoria, mi punto es ese
 
 
-  const DEBUG = false;
-  const x = (...args) => DEBUG;
-
   const crearProxyProtegido = (nodoArray) => {
     return new Proxy(nodoArray, {
       get(target, prop) {
@@ -163,7 +160,7 @@ var mi$ = (function (exports) {
       const elements = Array.from(document.querySelectorAll(selector));
       console.log(elements);
       const obj = Object.create(metodos);
-      x(obj);
+      console.log(obj);
       return crearProxyProtegido(elements)
         ;
     }
