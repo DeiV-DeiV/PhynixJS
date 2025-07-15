@@ -35,5 +35,5 @@ export const metodos = Object.freeze({
   },
 
   ...ayax,
-  drag,
+  ...effects,
 });
