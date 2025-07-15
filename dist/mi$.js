@@ -74,14 +74,14 @@ var mi$ = (function (exports) {
         e.preventDefault();
       };
       const onMouseMove = function (e) {
-          if(!isDraggable) return
-          currentX = e.clientX - offsetX;
-          currentY = e.clientY - offsetY;
+        if (!isDraggable) return;
+        currentX = e.clientX - offsetX;
+        currentY = e.clientY - offsetY;
         UpdatePos();
       };
       const onMouseUp = function () {
-          isDraggable = false;
-      el.style.cursor = "grab";
+        isDraggable = false;
+        el.style.cursor = "grab";
       };
 
       el.addEventListener("mousedown", onMouseDown);
