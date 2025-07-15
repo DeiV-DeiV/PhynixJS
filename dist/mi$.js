@@ -81,6 +81,7 @@ var mi$ = (function (exports) {
       };
       const onMouseUp = function () {
           isDraggable = false;
+          
       };
 
       el.addEventListener("mousedown", onMouseDown);
