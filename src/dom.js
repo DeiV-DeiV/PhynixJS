@@ -28,6 +28,7 @@ export const metodos = Object.freeze({
     this._forEach(el => el.innerHTML = html)  
     return this
   },
+  
 
   get,
   post,
