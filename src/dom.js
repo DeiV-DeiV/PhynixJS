@@ -1,7 +1,7 @@
 // dom.js
 
 import * as ayax from "./ajax.js";
-import {drag} from "./effects.js"
+import * as effects from "./effects.js"
 
 export const metodos = Object.freeze({
   _forEach(callback) {
