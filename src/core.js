@@ -61,7 +61,7 @@ export const mi$ = (selector) => {
 
   if (typeof selector === "string") {
     const elements = Array.from(document.querySelectorAll(selector));
-    
+    x()
     const obj = Object.create(metodos)
     x(obj)
     return DEV_MODO
