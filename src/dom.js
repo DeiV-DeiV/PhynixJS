@@ -29,7 +29,9 @@ export const metodos = Object.freeze({
     return this
   },
 
-  
+  animate(animate = {}){
+
+  },
 
   get,
   post,

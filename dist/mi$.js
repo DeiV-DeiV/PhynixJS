@@ -74,7 +74,9 @@ var mi$ = (function (exports) {
       return this
     },
 
-    
+    animate(animate = {}){
+
+    },
 
     get,
     post,
