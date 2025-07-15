@@ -34,6 +34,6 @@ export const metodos = Object.freeze({
     this._forEach(el=>requestAnimationFrame(el))
   },
 
-  ...
+  ...ayax,
   drag,
 });
