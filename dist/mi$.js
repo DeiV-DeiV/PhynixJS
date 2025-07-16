@@ -138,7 +138,7 @@ var mi$ = (function (exports) {
     },
 
     addClass(classname){
-      this._forEach(el=>el.classname);
+      this._forEach(el=>el.classList);
     },
 
     ...ayax,
