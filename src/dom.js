@@ -3,6 +3,10 @@
 import * as ayax from "./ajax.js";
 import * as effects from "./effects.js"
 
+const each = function(){
+  
+}
+
 export const metodos = Object.freeze({
   _forEach(callback) {
     for (let i = 0; i < this.length; i++) {
