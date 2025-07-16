@@ -74,8 +74,7 @@ export const mi$ = (selector) => {
     
 getProxy(elements)
     
-    return DEV_MODO ? usarProxyProtegido(elements)
-      : aplicarMetodos(elements);
+    return DEV_MODO ? usarProxyProtegido(elements): aplicarMetodos(elements);
   }
 
   return [];
