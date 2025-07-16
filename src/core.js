@@ -62,7 +62,7 @@ const usarProxyProtegido = (nodoArray) => {
     },
 
   });
-  proxyCache.set(nodoArray)
+  proxyCache.set(el,)
 };
 
 export const mi$ = (selector) => {
