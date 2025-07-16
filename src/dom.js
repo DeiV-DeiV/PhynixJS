@@ -42,7 +42,7 @@ export const metodos = Object.freeze({
   },
 
   addClass(classname){
-
+    
   },
 
   ...ayax,
