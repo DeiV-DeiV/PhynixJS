@@ -149,7 +149,9 @@ var mi$ = (function (exports) {
 
     toggleClass(classname){
       classname.trim().split(/\s+/);
-      this._forEach(el=>el.classList.toggle(classname));
+      this._forEach(el=>{
+        
+      });
       return this
     },
 
