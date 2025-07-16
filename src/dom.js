@@ -42,7 +42,7 @@ export const metodos = Object.freeze({
   },
 
   addClass(classname){
-    this._forEach(el=>el.clas)
+    this._forEach(el=>el.classname)
   },
 
   ...ayax,
