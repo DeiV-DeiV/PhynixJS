@@ -142,7 +142,7 @@ var mi$ = (function (exports) {
       return this
     },
 
-    addClass(classname){
+    removeClass(classname){
       this._forEach(el=>el.classList.add(classname));
       return this
     },
