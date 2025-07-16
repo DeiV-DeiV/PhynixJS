@@ -181,7 +181,6 @@ var mi$ = (function (exports) {
 
     if (typeof selector === "string") {
       const elements = Array.from(document.querySelectorAll(selector));
-      console.log(elements);
       
       return usarProxyProtegido(elements)
         ;
