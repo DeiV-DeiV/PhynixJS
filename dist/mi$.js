@@ -99,6 +99,7 @@ var mi$ = (function (exports) {
   // dom.js
 
 
+
   const metodos = Object.freeze({
     _forEach(callback) {
       for (let i = 0; i < this.length; i++) {

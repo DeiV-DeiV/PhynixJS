@@ -3,9 +3,6 @@
 import * as ayax from "./ajax.js";
 import * as effects from "./effects.js"
 
-const each = function(callback){
-  for(let i = 0;i< elements.length; i++){}
-}
 
 export const metodos = Object.freeze({
   _forEach(callback) {
