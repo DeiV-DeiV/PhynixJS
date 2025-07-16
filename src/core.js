@@ -72,7 +72,7 @@ export const mi$ = (selector) => {
   if (typeof selector === "string") {
     const elements = Array.from(document.querySelectorAll(selector));
     
-
+get
     
     return DEV_MODO
       ? usarProxyProtegido(elements)
