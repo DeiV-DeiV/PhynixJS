@@ -46,7 +46,7 @@ export const metodos = Object.freeze({
   },
 
   removeClass(classname) {
-    for(let el of this)
+    for(let el of this) el.classList.remove(classname)
     this._forEach((el) => el.classList.remove(classname));
     return this;
   },
