@@ -54,7 +54,7 @@ export const metodos = Object.freeze({
   toggleClass(classname){
     const clase = classname.trim().split(/\s+/);
     this._forEach(el=>{
-      clase
+      clase._forEach()
     })
     return this
   },
