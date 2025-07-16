@@ -29,7 +29,7 @@ const aplicarMetodos = (nodoArray) => {
     });
   }
 
-  // Previene agregar nuevas propiedades
+  // Evita agregar nuevas propiedades
   return nodoArray
   // return Object.freeze(nodoArray);
   // Object.freeze(Persona.prototype);
