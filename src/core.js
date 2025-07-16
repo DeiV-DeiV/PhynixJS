@@ -60,8 +60,9 @@ const usarProxyProtegido = (nodoArray) => {
       target[prop] = value;
       return true;
     },
-    
+
   });
+  
 };
 
 export const mi$ = (selector) => {
