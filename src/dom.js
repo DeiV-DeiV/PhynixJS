@@ -26,7 +26,7 @@ export const metodos = Object.freeze({
     this._forEach((el) => {
       const cache = getProxyCache(el)
       for (let [prop, val] of Object.entries(style)) {
-        el.style[prop] = val;
+        cache.style[prop] = val;
       }
     });
     return this;
