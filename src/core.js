@@ -75,8 +75,6 @@ export const mi$ = (selector) => {
   if (typeof selector === "string") {
     const elements = Array.from(document.querySelectorAll(selector));
     
-
-    
     return DEV_MODO ? usarProxyProtegido(elements) : aplicarMetodos(elements);
   }
 
