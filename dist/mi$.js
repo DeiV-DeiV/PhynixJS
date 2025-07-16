@@ -147,7 +147,7 @@ var mi$ = (function (exports) {
       return this
     },
 
-    toggleClass(...classname){
+    toggleClass(classname){
       this._forEach(el=>el.classList.toggle(classname));
       return this
     },
