@@ -41,7 +41,9 @@ export const metodos = Object.freeze({
     return this
   },
 
-  
+  addClass(classname){
+
+  },
 
   ...ayax,
   ...effects,
