@@ -60,6 +60,7 @@ const usarProxyProtegido = (nodoArray) => {
       target[prop] = value;
       return true;
     },
+    
   });
 };
 
