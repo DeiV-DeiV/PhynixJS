@@ -108,6 +108,7 @@ var mi$ = (function (exports) {
     },
 
     on(ev, callback) {
+      for(let el of this)
       this._forEach((ele) => ele.addEventListener(ev, callback));
       return this;
     },
