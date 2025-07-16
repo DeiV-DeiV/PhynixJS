@@ -6,7 +6,7 @@ import { metodos } from "./dom.js";
 const DEBUG = false;
 const x = (...args) => DEBUG && console.log(...args);
 
-const DEV_MODO = flase; // usar FALSE para produccion
+const DEV_MODO = false; // usar FALSE para produccion
 
 const aplicarMetodos = (nodoArray) => {
   // evita usar proxy

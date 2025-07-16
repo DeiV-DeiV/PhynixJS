@@ -145,8 +145,6 @@ var mi$ = (function (exports) {
   // consume menos memoria, mi punto es ese
 
 
-  const DEV_MODO = flase; // usar FALSE para produccion
-
   const aplicarMetodos = (nodoArray) => {
     // evita usar proxy
     for (const nameMetodo of Object.keys(metodos)) {
@@ -164,34 +162,6 @@ var mi$ = (function (exports) {
     // Object.freeze(Persona.prototype);
   };
 
-  const usarProxyProtegido = (nodoArray) => {
-    return new Proxy(nodoArray, {
-      get(target, prop) {
-        if (prop in target) return target[prop];
-        if (prop in metodos) {
-          const fn = metodos[prop];
-          Object.defineProperty(target, prop, {
-            value: fn,
-            writable: false,
-            configurable: false,
-            enumerable: false,
-          });
-
-          return fn;
-        }
-
-        return undefined;
-      },
-
-      set(target, prop, value) {
-        if (prop in metodos)
-          throw new Error(`No puedes sobreescribir el metodo ${prop}`);
-        target[prop] = value;
-        return true;
-      },
-    });
-  };
-
   const mi$ = (selector) => {
     if (typeof selector === "function") {
       document.addEventListener("DOMContentLoaded", selector);
@@ -201,9 +171,7 @@ var mi$ = (function (exports) {
     if (typeof selector === "string") {
       const elements = Array.from(document.querySelectorAll(selector));
       
-      return DEV_MODO
-        ? usarProxyProtegido(elements)
-        : aplicarMetodos(elements);
+      return aplicarMetodos(elements);
     }
 
     return [];
