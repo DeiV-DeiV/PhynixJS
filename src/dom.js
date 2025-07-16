@@ -1,6 +1,7 @@
 // dom.js
 
 import * as ayax from "./ajax.js";
+import { getProxy } from "./core.js";
 import * as effects from "./effects.js";
 
 export const metodos = Object.freeze({
@@ -24,7 +25,7 @@ export const metodos = Object.freeze({
   css(style = {}) {
     this._forEach((el) => {
       for (let [prop, val] of Object.entries(style)) {
-        get()
+        getProxy()
         el.style[prop] = val;
       }
     });
