@@ -145,6 +145,25 @@ var mi$ = (function (exports) {
   // consume menos memoria, mi punto es ese
 
 
+  const DEV_MODO = trfue; // usar FALSE para produccion
+
+  const aplicarMetodos = (nodoArray) => {
+    // evita usar proxy
+    for (const nameMetodo of Object.keys(metodos)) {
+      Object.defineProperty(nodoArray, nameMetodo, {
+        value: metodos[nameMetodo],
+        writable: false,
+        configurable: false,
+        enumerable: false,
+      });
+    }
+
+    // Previene agregar nuevas propiedades
+    return nodoArray
+    // return Object.freeze(nodoArray);
+    // Object.freeze(Persona.prototype);
+  };
+
   const usarProxyProtegido = (nodoArray) => {
     return new Proxy(nodoArray, {
       get(target, prop) {
@@ -182,8 +201,9 @@ var mi$ = (function (exports) {
     if (typeof selector === "string") {
       const elements = Array.from(document.querySelectorAll(selector));
       
-      return usarProxyProtegido(elements)
-        ;
+      return DEV_MODO
+        ? usarProxyProtegido(elements)
+        : aplicarMetodos(elements);
     }
 
     return [];
