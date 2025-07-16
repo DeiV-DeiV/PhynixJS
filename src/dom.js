@@ -51,6 +51,10 @@ export const metodos = Object.freeze({
     return this
   },
 
+  toggleClass(...classname){
+    this._forEach(el=>el.classList.toggle(classname))
+  },
+
   ...ayax,
   ...effects,
 });
