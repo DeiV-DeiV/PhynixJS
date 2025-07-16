@@ -36,7 +36,7 @@ const aplicarMetodos = (nodoArray) => {
 };
 
 const usarProxyProtegido = (nodoArray) => {
-  return new Proxy(nodoArray, {
+  const proxy = new Proxy(nodoArray, {
     get(target, prop) {
       if (prop in target) return target[prop];
       if (prop in metodos) {
