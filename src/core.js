@@ -8,6 +8,16 @@ const x = (...args) => DEBUG && console.log(...args);
 
 const DEV_MODO = true; // usar FALSE para produccion
 
+const proxyCache = new WeakMap()
+
+const getProxy = (el)=>{
+  if (!proxyCache.has(el)) {
+    const proxy = usarProxyProtegido([el]);
+    proxyCache.set(el, proxy);
+  }
+  return proxyCache.get(el);
+}
+
 const aplicarMetodos = (nodoArray) => {
   // evita usar proxy
   for (const nameMetodo of Object.keys(metodos)) {
@@ -61,11 +71,9 @@ export const mi$ = (selector) => {
 
   if (typeof selector === "string") {
     const elements = Array.from(document.querySelectorAll(selector));
-    const proxyElem = usarProxyProtegido([el]);
+    
 
-    const handler = function(event) {
-      callback.call(proxyElem, event);
-    };
+    
     return DEV_MODO
       ? usarProxyProtegido(elements)
       : aplicarMetodos(elements);
