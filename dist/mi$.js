@@ -154,7 +154,7 @@ var mi$ = (function (exports) {
         for(let cls of clase){
   el.classList.toggle(cls);
         }
-        clase._forEach((cls)=>{});
+        
       });
       return this
     },
