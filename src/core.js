@@ -61,7 +61,11 @@ export const mi$ = (selector) => {
 
   if (typeof selector === "string") {
     const elements = Array.from(document.querySelectorAll(selector));
-    
+    const proxyElem = usarProxyProtegido([el]);
+
+    const handler = function(event) {
+      callback.call(proxyElem, event);
+    };
     return DEV_MODO
       ? usarProxyProtegido(elements)
       : aplicarMetodos(elements);
