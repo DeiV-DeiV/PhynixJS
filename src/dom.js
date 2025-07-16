@@ -12,7 +12,7 @@ export const metodos = Object.freeze({
   },
 
   on(ev, callback) {
-    for(let el of this){}
+    for(let el of this)
     this._forEach((ele) => ele.addEventListener(ev, callback));
     return this;
   },
