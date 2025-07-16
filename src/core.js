@@ -10,7 +10,7 @@ const DEV_MODO = false; // usar FALSE para produccion
 
 const proxyCache = new WeakMap()
 
-export const getProxy = (el)=>{
+export const getProxyCache = (el)=>{
   if (!proxyCache.has(el)) {
     const proxy = usarProxyProtegido([el]);
     proxyCache.set(el, proxy);

@@ -1,7 +1,7 @@
 // dom.js
 
 import * as ayax from "./ajax.js";
-import { getProxy } from "./core.js";
+import { getProxyCache } from "./core.js";
 import * as effects from "./effects.js";
 
 export const metodos = Object.freeze({
