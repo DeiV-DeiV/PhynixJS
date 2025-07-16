@@ -6,7 +6,7 @@ import { metodos } from "./dom.js";
 const DEBUG = false;
 const x = (...args) => DEBUG && console.log(...args);
 
-const DEV_MODO = true; // usar FALSE para produccion
+const DEV_MODO = false; // usar FALSE para produccion
 
 const proxyCache = new WeakMap()
 
