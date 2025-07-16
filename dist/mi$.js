@@ -149,6 +149,7 @@ var mi$ = (function (exports) {
 
     toggleClass(...classname){
       this._forEach(el=>el.classList.toggle(classname));
+      reti;
     },
 
     ...ayax,
