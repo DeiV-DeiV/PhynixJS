@@ -23,8 +23,8 @@ export const metodos = Object.freeze({
   },
 
   css(style = {}) {
-    getProxy()
     this._forEach((el) => {
+      getProxy()
       for (let [prop, val] of Object.entries(style)) {
         el.style[prop] = val;
       }
