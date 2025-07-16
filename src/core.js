@@ -25,7 +25,7 @@ const aplicarMetodos = (nodoArray) => {
   // Object.freeze(Persona.prototype);
 };
 
-const crearProxyProtegido = (nodoArray) => {
+const usarProxyProtegido = (nodoArray) => {
   return new Proxy(nodoArray, {
     get(target, prop) {
       if (prop in target) return target[prop];
@@ -64,7 +64,7 @@ export const mi$ = (selector) => {
     console.log(elements)
     
     return DEV_MODO
-      ? crearProxyProtegido(elements)
+      ? usarProxyProtegido(elements)
       : aplicarMetodos(elements);
   }
 

@@ -21,17 +21,24 @@ export const metodos = Object.freeze({
     return this
   },
 
-  css(style) {
-    this._forEach((ele) => Object.assign(ele.style, style));
+  css(style = {}) {
+    
+    this._forEach((el) => {
+      for(let [prop,val] of  Object.entries(style)){
+        el.style[prop] = val
+      }
+    });
     return this;
   },
+
   html(html){
     this._forEach(el => el.innerHTML = html)  
     return this
   },
 
-  animate(animate = {}){
-    this._forEach(el=>requestAnimationFrame(el))
+  animate(animate){
+    this._forEach(el=>requestAnimationFrame(()=>animate(el)))
+    return this
   },
 
   ...ayax,

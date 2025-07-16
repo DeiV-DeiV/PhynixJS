@@ -117,17 +117,24 @@ var mi$ = (function (exports) {
       return this
     },
 
-    css(style) {
-      this._forEach((ele) => Object.assign(ele.style, style));
+    css(style = {}) {
+      
+      this._forEach((el) => {
+        for(let [prop,val] of  Object.entries(style)){
+          el.style[prop] = val;
+        }
+      });
       return this;
     },
+
     html(html){
       this._forEach(el => el.innerHTML = html);  
       return this
     },
 
-    animate(animate = {}){
-      this._forEach(el=>requestAnimationFrame(el));
+    animate(animate){
+      this._forEach(el=>requestAnimationFrame(()=>animate(el)));
+      return this
     },
 
     ...ayax,
@@ -138,7 +145,7 @@ var mi$ = (function (exports) {
   // consume menos memoria, mi punto es ese
 
 
-  const crearProxyProtegido = (nodoArray) => {
+  const usarProxyProtegido = (nodoArray) => {
     return new Proxy(nodoArray, {
       get(target, prop) {
         if (prop in target) return target[prop];
@@ -176,7 +183,7 @@ var mi$ = (function (exports) {
       const elements = Array.from(document.querySelectorAll(selector));
       console.log(elements);
       
-      return crearProxyProtegido(elements)
+      return usarProxyProtegido(elements)
         ;
     }
 
