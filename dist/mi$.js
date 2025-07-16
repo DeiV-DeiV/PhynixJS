@@ -143,7 +143,7 @@ var mi$ = (function (exports) {
     },
 
     removeClass(classname){
-      this._forEach(el=>el.classList.remo(classname));
+      this._forEach(el=>el.classList.remove(classname));
       return this
     },
 
