@@ -145,7 +145,7 @@ var mi$ = (function (exports) {
   // consume menos memoria, mi punto es ese
 
 
-  const DEV_MODO = trfue; // usar FALSE para produccion
+  const DEV_MODO = flase; // usar FALSE para produccion
 
   const aplicarMetodos = (nodoArray) => {
     // evita usar proxy
