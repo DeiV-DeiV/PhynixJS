@@ -1,7 +1,7 @@
 // effects.js
 
 export function drag() {
-  this._forEach((el) => {
+  for (let el of this) {
     el.style.cursor = "grab";
     el.style.position = "relative";
     let isDraggable = false;
@@ -35,6 +35,7 @@ export function drag() {
     el.addEventListener("mousedown", onMouseDown);
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp);
-  });
+  }
+
   return this;
 }

@@ -6,22 +6,12 @@ import { metodos } from "./dom.js";
 const DEBUG = false;
 const x = (...args) => DEBUG && console.log(...args);
 
-const DEV_MODO = false; // usar FALSE para produccion
+const DEV_MODO = true; // usar FALSE para produccion
 
-const proxyCache = new WeakMap()
-
-export const getProxyCache = (el)=>{
-  if (!proxyCache.has(el)) {
-    const proxy = usarProxyProtegido([el]);
-    proxyCache.set(el, proxy);
-  }
-  return proxyCache.get(el);
-}
-
-const aplicarMetodos = (nodoArray) => {
+const aplicarMetodos = (el) => {
   // evita usar proxy
   for (const nameMetodo of Object.keys(metodos)) {
-    Object.defineProperty(nodoArray, nameMetodo, {
+    Object.defineProperty(el, nameMetodo, {
       value: metodos[nameMetodo],
       writable: false,
       configurable: false,
@@ -30,13 +20,13 @@ const aplicarMetodos = (nodoArray) => {
   }
 
   // Evita agregar nuevas propiedades
-  return nodoArray
+  return el;
   // return Object.freeze(nodoArray);
   // Object.freeze(Persona.prototype);
 };
 
-const usarProxyProtegido = (nodoArray) => {
-  const proxy = new Proxy(nodoArray, {
+const usarProxyProtegido = (el) => {
+  return new Proxy(el, {
     get(target, prop) {
       if (prop in target) return target[prop];
       if (prop in metodos) {
@@ -56,14 +46,11 @@ const usarProxyProtegido = (nodoArray) => {
 
     set(target, prop, value) {
       if (prop in metodos)
-        throw new Error(`No puedes sobreescribir el metodo ${prop}`);
+        throw new Error(`No puedes sobreescribir el metodo .${prop}`);
       target[prop] = value;
       return true;
     },
-
   });
-  proxyCache.set(el,proxy)
-  return proxyCache.get(el)
 };
 
 export const mi$ = (selector) => {
@@ -74,9 +61,36 @@ export const mi$ = (selector) => {
 
   if (typeof selector === "string") {
     const elements = Array.from(document.querySelectorAll(selector));
-    
+
+    return DEV_MODO ? usarProxyProtegido(elements) : aplicarMetodos(elements);
+  }
+  
+  // Si es un nodo DOM individual
+  if (selector instanceof Element) {
+    const elements = [selector];
     return DEV_MODO ? usarProxyProtegido(elements) : aplicarMetodos(elements);
   }
 
   return [];
+};
+
+const modsMap = {
+  ctrl: "ctrlKey",
+  alt: "altKey",
+  shift: "shiftKey",
+  meta: "metaKey",
+};
+
+export const $keydown = ({ selector, keypress, handle }) => {
+  const element = mi$(selector);
+  const [modKey, keyChar] = keypress.toLowerCase().split("+");
+  const modKeyProp = modsMap[modKey];
+
+  document.addEventListener("keydown", (e) => {
+    const matchKey = e[modKeyProp] && e.key.toLowerCase() === keyChar;
+
+    if (matchKey) {
+      element._forEach((el) => handle.call(mi$(el)));
+    }
+  });
 };

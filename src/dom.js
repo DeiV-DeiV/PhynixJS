@@ -1,7 +1,8 @@
 // dom.js
 
 import * as ayax from "./ajax.js";
-import { getProxyCache } from "./core.js";
+import { mi$ } from "./core.js";
+
 import * as effects from "./effects.js";
 
 export const metodos = Object.freeze({
@@ -13,27 +14,24 @@ export const metodos = Object.freeze({
   },
 
   on(ev, callback) {
-    for(let el of this)el.addEventListener(ev, callback)
+    for (let el of this) el.addEventListener(ev, callback.call(mi$(el)));
     return this;
   },
 
   off(ev, callback) {
-    this._forEach((el) => el.removeEventListener(ev, callback));
+    for (let el of this) el.removeEventListener(ev, callback);
     return this;
   },
 
   css(style = {}) {
     this._forEach((el) => {
-      const cache = getProxyCache(el)
-      for (let [prop, val] of Object.entries(style)) {
-        cache.style[prop] = val;
-      }
+      for (let [prop, val] of Object.entries(style)) el.style[prop] = val;
     });
     return this;
   },
 
   html(html) {
-    this._forEach((el) => (el.innerHTML = html));
+    for (let el of this) el.innerHTML = html;
     return this;
   },
 
@@ -48,8 +46,8 @@ export const metodos = Object.freeze({
   },
 
   removeClass(classname) {
-    for(let el of this) el.classList.remove(classname)
-    // this._forEach((el) => el.classList.remove(classname));
+    for (let el of this) el.classList.remove(classname);
+
     return this;
   },
 
@@ -59,6 +57,11 @@ export const metodos = Object.freeze({
       for (let cls of clase) el.classList.toggle(cls);
     });
     return this;
+  },
+
+  hide(){
+    this._forEach(el=>{el.style.display = 'none'})
+    return this
   },
 
   ...ayax,
