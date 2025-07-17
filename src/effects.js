@@ -3,7 +3,7 @@
 export function drag() {
   for (let el of this) {
     el.style.cursor = "grab";
-    el.style.position = "relative";
+    // el.style.position = "relative";
     let isDraggable = false;
     let offsetX = 0,
       offsetY = 0;
