@@ -1,18 +1,18 @@
 // core.js
 // consume menos memoria, mi punto es ese
 
-import { metodos } from "./dom.js";
+import { metodos } from "./metodos.js";
 
 const DEBUG = false;
 const x = (...args) => DEBUG && console.log(...args);
 
-const DEV_MODO = true; // usar FALSE para produccion
+const DEV_MODO = false; // usar FALSE para produccion
 
 const aplicarMetodos = (el) => {
   // evita usar proxy
-  for (const nameMetodo of Object.keys(metodos)) {
+  for (const nameMetodo of Object.keys(el)) {
     Object.defineProperty(el, nameMetodo, {
-      value: metodos[nameMetodo],
+      value: el[nameMetodo],
       writable: false,
       configurable: false,
       enumerable: false,
@@ -20,12 +20,11 @@ const aplicarMetodos = (el) => {
   }
 
   // Evita agregar nuevas propiedades
-  return el;
-  // return Object.freeze(nodoArray);
-  // Object.freeze(Persona.prototype);
+  return Object.freeze(el);
+ 
 };
 
-const usarProxyProtegido = (el) => {
+const usarProxy = (el) => {
   return new Proxy(el, {
     get(target, prop) {
       if (prop in target) return target[prop];
@@ -53,44 +52,49 @@ const usarProxyProtegido = (el) => {
   });
 };
 
-export const mi$ = (selector) => {
-  if (typeof selector === "function") {
-    document.addEventListener("DOMContentLoaded", selector);
+// errores personalizados
+const error = (s) => {
+  throw new Error(`Elemento Invalido --> ${s} <--`);
+};
+
+
+// ejecutadores
+
+window.$$ = function (s) {
+  if (typeof s === "function") {
+    document.addEventListener("DOMContentLoaded", s);
     return;
   }
+  DEV_MODO ? aplicarMetodos(s) : usarProxy(s);
 
-  if (typeof selector === "string") {
-    const elements = Array.from(document.querySelectorAll(selector));
+  const ele =
+    typeof s === "string"
+      ? [...document.querySelectorAll(s)]
+      : s instanceof Element
+      ? [s]
+      : s instanceof NodeList || Array.isArray(s)
+      ? [...s]
+      : error(s);
 
-    return DEV_MODO ? usarProxyProtegido(elements) : aplicarMetodos(elements);
+  return metodos(ele);
+};
+
+window.$ = (s) => {
+  if (typeof s === "function") {
+    document.addEventListener("DOMContentLoaded", s);
+    return;
   }
-  
-  // Si es un nodo DOM individual
-  if (selector instanceof Element) {
-    const elements = [selector];
-    return DEV_MODO ? usarProxyProtegido(elements) : aplicarMetodos(elements);
-  }
+  DEV_MODO ? aplicarMetodos(s) : usarProxy(s);
+  const ele =
+    typeof s === "string"
+      ? document.querySelector(s)
+      : s instanceof Element
+      ? s
+      : error(s);
 
-  return [];
+  return metodos([ele]);
 };
 
-const modsMap = {
-  ctrl: "ctrlKey",
-  alt: "altKey",
-  shift: "shiftKey",
-  meta: "metaKey",
-};
 
-export const $keydown = ({ selector, keypress, handle }) => {
-  const element = mi$(selector);
-  const [modKey, keyChar] = keypress.toLowerCase().split("+");
-  const modKeyProp = modsMap[modKey];
-
-  document.addEventListener("keydown", (e) => {
-    const matchKey = e[modKeyProp] && e.key.toLowerCase() === keyChar;
-
-    if (matchKey) {
-      element._forEach((el) => handle.call(mi$(el)));
-    }
-  });
-};
+// exportar como modulos
+export { $, $$, error, x };

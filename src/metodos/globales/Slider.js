@@ -1,0 +1,1 @@
+// metodos/globales/Slider.js
