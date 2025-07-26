@@ -21,7 +21,6 @@ const aplicarMetodos = (el) => {
 
   // Evita agregar nuevas propiedades
   return Object.freeze(el);
- 
 };
 
 const usarProxy = (el) => {
@@ -57,7 +56,6 @@ const error = (s) => {
   throw new Error(`Elemento Invalido --> ${s} <--`);
 };
 
-
 // ejecutadores
 
 window.$$ = function (s) {
@@ -65,7 +63,6 @@ window.$$ = function (s) {
     document.addEventListener("DOMContentLoaded", s);
     return;
   }
-  DEV_MODO ? aplicarMetodos(s) : usarProxy(s);
 
   const ele =
     typeof s === "string"
@@ -76,7 +73,8 @@ window.$$ = function (s) {
       ? [...s]
       : error(s);
 
-  return metodos(ele);
+  const final = DEV_MODO ? aplicarMetodos(s) : usarProxy(s);
+  return metodos(final);
 };
 
 window.$ = (s) => {
@@ -84,7 +82,6 @@ window.$ = (s) => {
     document.addEventListener("DOMContentLoaded", s);
     return;
   }
-  DEV_MODO ? aplicarMetodos(s) : usarProxy(s);
   const ele =
     typeof s === "string"
       ? document.querySelector(s)
@@ -92,9 +89,9 @@ window.$ = (s) => {
       ? s
       : error(s);
 
-  return metodos([ele]);
+  const final = DEV_MODO ? aplicarMetodos(s) : usarProxy(s);
+  return metodos([final]);
 };
-
 
 // exportar como modulos
 export { $, $$, error, x };

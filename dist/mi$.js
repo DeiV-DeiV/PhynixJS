@@ -1,5 +1,5 @@
-var mi$ = (function (exports) {
-  'use strict';
+let mi$ = (function (exports) {
+  "use strict";
 
   //ajax.js
 
@@ -44,60 +44,20 @@ var mi$ = (function (exports) {
     return this;
   }
 
-  var ayax = /*#__PURE__*/Object.freeze({
+  var ayax = /*#__PURE__*/ Object.freeze({
     __proto__: null,
     get: get,
-    post: post
+    post: post,
   });
 
-  // effects.js
+  // _____________________________
 
-  function drag() {
-    this._forEach((el) => {
-      el.style.cursor = "grab";
-      el.style.position = "relative";
-      let isDraggable = false;
-      let offsetX = 0,
-        offsetY = 0;
-      let currentX = 0,
-        currentY = 0;
-
-      const UpdatePos = () => {
-        el.style.transform = `translate(${currentX}px, ${currentY}px)`;
-      };
-
-      const onMouseDown = function (e) {
-        isDraggable = true;
-        offsetX = e.clientX - currentX;
-        offsetY = e.clientY - currentY;
-        el.style.cursor = "grabbing";
-        e.preventDefault();
-      };
-      const onMouseMove = function (e) {
-        if (!isDraggable) return;
-        currentX = e.clientX - offsetX;
-        currentY = e.clientY - offsetY;
-        UpdatePos();
-      };
-      const onMouseUp = function () {
-        isDraggable = false;
-        el.style.cursor = "grab";
-      };
-
-      el.addEventListener("mousedown", onMouseDown);
-      window.addEventListener("mousemove", onMouseMove);
-      window.addEventListener("mouseup", onMouseUp);
-    });
-    return this;
-  }
-
-  var effects = /*#__PURE__*/Object.freeze({
+  var effects = /*#__PURE__*/ Object.freeze({
     __proto__: null,
-    drag: drag
+    drag: drag,
   });
 
   // dom.js
-
 
   const metodos = Object.freeze({
     _forEach(callback) {
@@ -107,8 +67,29 @@ var mi$ = (function (exports) {
       return this;
     },
 
-    on(ev, callback) {
-      for(let el of this)el.addEventListener(ev, callback);
+    on(ev, handler = {}) {
+      for (let el of this) {
+        if (typeof handler === "object") {
+          el.addEventListener(ev, function (e) {
+            for (const [selector, fn] of Object.entries(handler)) {
+              console.log(selector);
+              const target = e.target.closest(selector); // '.' o '#'
+
+              if (target && el.contains(target)) {
+                fn.call(mi$(target), e);
+              }
+            }
+          });
+        } else if (typeof handler === "function") {
+          el.addEventListener(
+            ev,
+            function (e) {
+              handler.call(mi$(e.currentTarget), e);
+            },
+            { once: true }
+          );
+        }
+      }
       return this;
     },
 
@@ -142,7 +123,7 @@ var mi$ = (function (exports) {
     },
 
     removeClass(classname) {
-      for(let el of this) el.classList.remove(classname);
+      for (let el of this) el.classList.remove(classname);
       // this._forEach((el) => el.classList.remove(classname));
       return this;
     },
@@ -158,10 +139,159 @@ var mi$ = (function (exports) {
     ...ayax,
     ...effects,
   });
+  // --------------------------------------------------------------------
 
+  // effects.js
+
+  const dragState = new WeakMap();
+  const registeredContainers = new WeakSet();
+  const MOVE_LISTENERS_ADDED = "__global_drag_listeners_added__";
+
+  let isDragging = false;
+  let draggedElement = null;
+  let currentContainer = null;
+
+  function clamp(val, min, max) {
+    return Math.max(min, Math.min(val, max));
+  }
+
+  function addGlobalListeners() {
+    if (window[MOVE_LISTENERS_ADDED]) return;
+    window[MOVE_LISTENERS_ADDED] = true;
+
+    const moveHandler = (clientX, clientY) => {
+      if (!isDragging || !draggedElement || !currentContainer) return;
+
+      const state = dragState.get(draggedElement);
+      if (!state) return;
+
+      const containerRect = currentContainer.getBoundingClientRect();
+      const elemRect = draggedElement.getBoundingClientRect();
+
+      const maxX = containerRect.width - elemRect.width;
+      const maxY = containerRect.height - elemRect.height;
+
+      const x = clamp(clientX - state.offsetX, 0, maxX);
+      const y = clamp(clientY - state.offsetY, 0, maxY);
+
+      state.x = x;
+      state.y = y;
+
+      draggedElement.style.transform = `translate(${x}px, ${y}px)`;
+    };
+
+    window.addEventListener("mousemove", (e) => {
+      moveHandler(e.clientX, e.clientY);
+    });
+
+    window.addEventListener(
+      "touchmove",
+      (e) => {
+        if (e.touches.length > 0) {
+          const touch = e.touches[0];
+          moveHandler(touch.clientX, touch.clientY);
+        }
+      },
+      { passive: false }
+    );
+
+    const stopDrag = () => {
+      if (!isDragging || !draggedElement) return;
+
+      const state = dragState.get(draggedElement);
+      if (state) state.dragging = false;
+
+      draggedElement.style.cursor = "grab";
+      isDragging = false;
+      draggedElement = null;
+      currentContainer = null;
+    };
+
+    window.addEventListener("mouseup", stopDrag);
+    window.addEventListener("touchend", stopDrag);
+  }
+
+  function drag(container, selector) {
+    if (!(container instanceof Element)) return;
+    if (registeredContainers.has(container)) return;
+
+    registeredContainers.add(container);
+    addGlobalListeners();
+
+    const startDrag = (target, clientX, clientY) => {
+      if (!dragState.has(target)) {
+        dragState.set(target, {
+          dragging: false,
+          offsetX: 0,
+          offsetY: 0,
+          x: 0,
+          y: 0,
+        });
+
+        target.style.position = "relative";
+        target.style.cursor = "grab";
+      }
+
+      const state = dragState.get(target);
+      state.dragging = true;
+      state.offsetX = clientX - state.x;
+      state.offsetY = clientY - state.y;
+
+      target.style.cursor = "grabbing";
+      isDragging = true;
+      draggedElement = target;
+      currentContainer = container;
+    };
+
+    container.addEventListener("mousedown", (e) => {
+      const target = e.target.closest(selector);
+      if (!target || !container.contains(target)) return;
+      startDrag(target, e.clientX, e.clientY);
+      e.preventDefault();
+    });
+
+    container.addEventListener(
+      "touchstart",
+      (e) => {
+        const touch = e.touches[0];
+        const target = e.target.closest(selector);
+        if (!target || !container.contains(target)) return;
+        startDrag(target, touch.clientX, touch.clientY);
+        e.preventDefault();
+      },
+      { passive: false }
+    );
+  }
+
+  function resetDragPosition(element) {
+    if (!dragState.has(element)) return;
+    const state = dragState.get(element);
+    state.x = 0;
+    state.y = 0;
+    element.style.transform = "translate(0px, 0px)";
+  }
+
+  // ---------------------------------------------------------------------
   // core.js
   // consume menos memoria, mi punto es ese
+  const DEV_MODO = true; // usar FALSE para produccion
 
+  const aplicarMetodos = (el) => {
+    // evita usar proxy
+    for (const nameMetodo of Object.keys(metodos)) {
+      Object.defineProperty(el, nameMetodo, {
+        value: metodos[nameMetodo],
+        writable: false,
+        configurable: false,
+        enumerable: false,
+      });
+    }
+
+    // Evita agregar nuevas propiedades
+    return el;
+    // return Object.freeze(nodoArray);
+    // Object.freeze(Persona.prototype);
+  };
 
   const usarProxyProtegido = (nodoArray) => {
     return new Proxy(nodoArray, {
@@ -195,26 +325,46 @@ var mi$ = (function (exports) {
     if (typeof selector === "function") {
       document.addEventListener("DOMContentLoaded", selector);
       return;
-    }
-
-    if (typeof selector === "string") {
+    } else if (typeof selector === "string") {
       const elements = Array.from(document.querySelectorAll(selector));
-      
-      return usarProxyProtegido(elements)
-        ;
+      return DEV_MODO ? usarProxyProtegido(elements) : aplicarMetodos(elements);
+    } else if (selector instanceof Element) {
+      const elements = [selector];
+      return DEV_MODO ? usarProxyProtegido(elements) : aplicarMetodos(elements);
     }
 
     return [];
   };
 
+  const $keydown = ({ keypress, handler }) => {
+    for(const selector of handler){
+      console.log(selector)
+    }
+    
+    
+    const element = mi$(selector);
+    const [modKey, keyChar] = keypress.toLowerCase().split("+");
+    const modKeyProp = modsMap[modKey];
+
+    document.addEventListener("keydown", (e) => {
+      const matchKey = e[modKeyProp] && e.key.toLowerCase() === keyChar;
+
+      if (matchKey) {
+        element._forEach((el) => fn.call(mi$(el)));
+      }
+    });
+  };
+
   // index.js
 
   const $ = (selector) => mi$(selector);
+  const keydown = ({ keypress, handler }) => $keydown({ keypress, handler });
+
   window.$ = (selector) => mi$(selector);
+  window.keydown = ({ keypress, handler }) => $keydown({ keypress, handler });
 
   exports.$ = $;
 
   return exports;
-
 })({});
 //# sourceMappingURL=mi$.js.map
