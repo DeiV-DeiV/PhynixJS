@@ -58,7 +58,7 @@ const error = (s) => {
 
 // ejecutadores
 
-window.$$ = function (s) {
+const $$ = function (s) {
   if (typeof s === "function") {
     document.addEventListener("DOMContentLoaded", s);
     return;
@@ -77,7 +77,7 @@ window.$$ = function (s) {
   return metodos(final);
 };
 
-window.$ = (s) => {
+const $ = (s) => {
   if (typeof s === "function") {
     document.addEventListener("DOMContentLoaded", s);
     return;
@@ -93,5 +93,7 @@ window.$ = (s) => {
   return metodos([final]);
 };
 
-// exportar como modulos
+// exportacion global y modulo
+window.$ = $
+window.$$ = $$
 export { $, $$, error, x };
