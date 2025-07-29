@@ -8,6 +8,16 @@ import { get } from "./metodos/get.js";
 import { post } from "./metodos/post.js";
 import { on } from "./metodos/on.js";
 
+// metodos globales
+import { Click, Input } from "./metodos/globales/Click.js";
+import { Drag } from "./metodos/globales/Drag.js";
+import { On } from "./metodos/globales/On.js";
+
+Click
+Input
+Drag
+On
+
 export const metodos = (el) => {
   const api = Object.freeze({
     _forEach,

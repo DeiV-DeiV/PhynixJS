@@ -1,6 +1,6 @@
 // metodos/globales/On.js
 
-import { mi$ } from "../../core.js";
+import { $ } from "../../core.js";
 
 export let EventHandlersByType = {};
 
@@ -10,7 +10,7 @@ export let EventHandlersByType = {};
 //   EventHandlersByType[ev] = { ...EventHandlersByType[ev], ...handler };
 // }
 
-function $On(ev, handler = {}) {
+export const On = (window.On = function (ev, handler = {}) {
   if (typeof handler !== "object" || handler == null) {
     console.error("handler debe ser un objeto");
     return;
@@ -20,16 +20,9 @@ function $On(ev, handler = {}) {
     for (const [selector, fn] of Object.entries(EventHandlersByType[ev])) {
       const target = e.target.closest(selector);
       if (target) {
-        fn.call(mi$(target), e);
+        fn.call($(target), e);
         break;
       }
     }
   });
-
-
-  
-}
-
-// Soporte global y por módulo
-export const On = (ev, handler) => $On(ev, handler);
-window.On = (ev, handler) => $On(ev, handler);
+});

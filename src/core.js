@@ -96,4 +96,5 @@ const $ = (s) => {
 // exportacion global y modulo
 window.$ = $
 window.$$ = $$
+
 export { $, $$, error, x };
