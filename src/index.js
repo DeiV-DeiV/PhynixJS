@@ -2,7 +2,7 @@
 // import {}from ""
 
 
-import { $ } from "./core.js";
+import { $, $$, error, x} from "./core.js";
 import { evGlobales } from "./metodosGlobales/eventsGlobals.js";
 
 
