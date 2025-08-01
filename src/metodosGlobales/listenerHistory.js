@@ -1,6 +1,9 @@
-// src/metodos/globales/listenerHistory.js
+// src/metodosGlobales/listenerHistory.js
 
 export let listenerRegistry  = {}; // agregando eventos globales
+
+// Solo un listener por tipo de evento
+export const eventosRegistrados = new Set();
 
 export function listenerHistory(ev, handlers) {
   const listeners = listenerRegistry[ev] ||= {}
@@ -9,4 +12,4 @@ export function listenerHistory(ev, handlers) {
   return listeners 
 }
 
-console.log(listenerRegistry)
+

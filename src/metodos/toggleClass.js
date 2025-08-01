@@ -1,4 +1,4 @@
-// metodos/toggleClass.js
+// src/metodos/toggleClass.js
 export function toggleClass(classname) {
   const clase = classname.trim().split(/\s+/);
   this._forEach((el) => {

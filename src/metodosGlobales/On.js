@@ -1,6 +1,6 @@
 // metodos/globales/On.js
 
-import { $ } from "../../core.js";
+import { $ } from "../core.js";
 
 export let EventHandlersByType = {};
 

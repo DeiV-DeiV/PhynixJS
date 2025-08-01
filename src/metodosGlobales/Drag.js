@@ -4,12 +4,15 @@ import { $ } from "../../core.js";
 
 const dragState = new WeakMap();
 
-export const Drag = (window.Drag = function (obj) {
+ const Drag = (window.Drag = function (obj) {
   for (const [parentSelector, chieldSelector] of Object.entries(obj)) {
     const parents = $(parentSelector);
 
     for (const parent of parents) {
       parent.addEventListener("mousedown", (e) => {
+
+        
+        
         const target = e.target.closest(chieldSelector);
         if (!target) return;
 

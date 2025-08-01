@@ -1,6 +1,7 @@
 // core.js
 // consume menos memoria, mi punto es ese
 
+import { error } from "./helpers/error.js";
 import { metodos } from "./metodos.js";
 
 const DEBUG = false;
@@ -10,9 +11,9 @@ const DEV_MODO = false; // usar FALSE para produccion
 
 const aplicarMetodos = (el) => {
   // evita usar proxy
-  for (const nameMetodo of Object.keys(el)) {
+  for (const nameMetodo of Object.keys(metodos)) {
     Object.defineProperty(el, nameMetodo, {
-      value: el[nameMetodo],
+      value: metodos[nameMetodo],
       writable: false,
       configurable: false,
       enumerable: false,
@@ -51,10 +52,6 @@ const usarProxy = (el) => {
   });
 };
 
-// errores personalizados
-const error = (s) => {
-  throw new Error(`Elemento Invalido --> ${s} <--`);
-};
 
 // ejecutadores
 
@@ -73,8 +70,10 @@ const $$ = function (s) {
       ? [...s]
       : error(s);
 
-  const final = DEV_MODO ? aplicarMetodos(s) : usarProxy(s);
-  return metodos(final);
+  if (!ele) error(s); // <- agrega esta validación
+
+  const final = DEV_MODO ? aplicarMetodos(ele) : usarProxy(ele);
+  return final;
 };
 
 const $ = (s) => {
@@ -89,12 +88,14 @@ const $ = (s) => {
       ? s
       : error(s);
 
-  const final = DEV_MODO ? aplicarMetodos(s) : usarProxy(s);
-  return metodos([final]);
+  if (!ele) error(s); // <- agrega esta validación
+
+  const final = DEV_MODO ? aplicarMetodos([ele]) : usarProxy([ele]);
+  return final;
 };
 
 // exportacion global y modulo
-window.$ = $
-window.$$ = $$
+window.$ = $;
+window.$$ = $$;
 
 export { $, $$, error, x };
