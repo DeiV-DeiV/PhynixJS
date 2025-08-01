@@ -1,5 +1,5 @@
 // src/index.js
-
+import {$, $$, error, x}
 
 
 import { evGlobales } from "./metodosGlobales/eventsGlobals.js";
