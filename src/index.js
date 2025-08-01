@@ -1,5 +1,5 @@
 // src/index.js
-// import {$, $$, error, x}from ""
+// import {}from ""
 
 
 import { $ } from "./core.js";
