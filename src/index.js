@@ -1,12 +1,12 @@
 // src/index.js
 
-import { $, $$, error, x} from "./core.js";
+import { $, $$, error, x } from "./core.js";
 import { evGlobales } from "./metodosGlobales/eventsGlobals.js";
 
 // exportacion global y modulo
 window.$ = $;
 window.$$ = $$;
-window.x = x
+window.x = x;
 
 // Exportacion metodosGlobales |metodo y global|
 
