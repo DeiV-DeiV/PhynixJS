@@ -1,5 +1,7 @@
 // src/index.js
 
+
+
 import { evGlobales } from "./metodosGlobales/eventsGlobals.js";
 
 // Exportacion metodosGlobales |metodo y global|
