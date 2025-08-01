@@ -5,8 +5,6 @@
 import { evGlobales } from "./metodosGlobales/eventsGlobals.js";
 
 
-
-$, $$, error, x
 // Exportacion metodosGlobales |metodo y global|
 
 export const On = (ev, handler = {}) => evGlobales(ev, handler);
