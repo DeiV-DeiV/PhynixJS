@@ -94,8 +94,6 @@ const $ = (s) => {
   return final;
 };
 
-// exportacion global y modulo
-window.$ = $;
-window.$$ = $$;
+
 
 export { $, $$, error, x };
