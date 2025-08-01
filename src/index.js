@@ -3,7 +3,7 @@
 import { $, $$, error, x} from "./core.js";
 import { evGlobales } from "./metodosGlobales/eventsGlobals.js";
 
-
+$
 // Exportacion metodosGlobales |metodo y global|
 
 export const On = (ev, handler = {}) => evGlobales(ev, handler);
