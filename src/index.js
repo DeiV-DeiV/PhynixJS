@@ -2,22 +2,19 @@
 
 import { evGlobales } from "./metodosGlobales/eventsGlobals.js";
 
+// Exportacion metodosGlobales |metodo y global|
 
-// Exportacion metodos globales
+export const On = (ev, handler = {}) => evGlobales(ev, handler);
+window.On = On;
 
-export const On = (window.On = (ev, handler = {}) => evGlobales(ev, handler));
+export const Click = (handlers = {}) => evGlobales("click", handlers);
+window.Click = Click;
 
-export const Click = (window.Click = (handlers = {}) =>
-  evGlobales("click", handlers));
+export const Input = (handlers = {}) => evGlobales("input", handlers);
+window.Input = Input;
 
-export const Input = (window.Input = (handlers = {}) =>
-  evGlobales("input", handlers));
+export const Drag = (handlers = {}) => evGlobales("mousedown", handlers);
+window.Drag = Drag;
 
-export const Drag = (window.Drag = (handlers = {}) => {
-  evGlobales("mousedown", handlers);
-});
-
-export const Shortcut = (window.Shortcut = (handlers = {}) =>{
-  
-  evGlobales("keydown", handlers)
-});
+export const Shortcut = (handlers = {}) => evGlobales("keydown", handlers);
+window.Shortcut = Shortcut;
