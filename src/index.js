@@ -1,7 +1,8 @@
 // src/index.js
 // import {$, $$, error, x}from ""
+$
 
-
+import { $ } from "./core.js";
 import { evGlobales } from "./metodosGlobales/eventsGlobals.js";
 
 
