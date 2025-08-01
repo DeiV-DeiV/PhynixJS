@@ -94,6 +94,4 @@ const $ = (s) => {
   return final;
 };
 
-
-
 export { $, $$, error, x };
