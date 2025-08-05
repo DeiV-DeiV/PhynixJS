@@ -2,7 +2,7 @@
 
 export async function post(template, body = {}) {
   if (!template || typeof template !== "string") {
-    console.error("mi$.html(): Ruta inválida.");
+    console.error("$.html(): Ruta inválida.");
     return this;
   }
 
@@ -20,7 +20,7 @@ export async function post(template, body = {}) {
     const html = await res.text();
     this._forEach((el) => (el.innerHTML += html));
   } catch (error) {
-    console.error("mi$.html(): Falló la carga del componente:", error);
+    console.error("$.html(): Falló la carga del componente:", error);
   }
   return this;
 }

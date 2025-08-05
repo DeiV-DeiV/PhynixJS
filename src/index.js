@@ -3,10 +3,10 @@
 import { $, $$, x } from "./core.js";
 import { evGlobales } from "./metodosGlobales/eventsGlobals.js";
 
-// exportacion global 
-window.$ = $;
-window.$$ = $$;
+// exportacion global
 window.x = x;
+window.$$ = $$;
+window.$ = $;
 
 // Exportacion metodosGlobales |metodo y global|
 

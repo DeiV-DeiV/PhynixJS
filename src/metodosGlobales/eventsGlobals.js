@@ -1,12 +1,14 @@
 // src/metodosGlobales/eventsGlobals.js
 
 import { $ } from "../core.js";
+
 import { metodosGlobales } from "./metodosGlobales.js";
 import {
   eventosRegistrados,
   listenerHistory,
   listenerRegistry,
 } from "./listenerHistory.js";
+
 
 // metodos globales
 export function evGlobales(ev, handlers) {
@@ -21,9 +23,7 @@ export function evGlobales(ev, handlers) {
           metodosGlobales[ev](e);
         }
       : function (e) {
-          for (const [selector, fn] of Object.entries(
-            listenerRegistry[ev] || {}
-          )) {
+          for (const [selector, fn] of Object.entries(listenerRegistry[ev])) {
             const target = e.target.closest(selector);
             if (target) {
               fn.call($(target), e);
