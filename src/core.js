@@ -4,7 +4,6 @@
 import { error } from "./helpers/error.js";
 import { metodos } from "./metodos.js";
 
-
 const x = (...args) => console.log(...args);
 
 const DEV_MODO = false; // usar FALSE para produccion
@@ -21,7 +20,7 @@ const aplicarMetodos = (el) => {
   }
 
   // Evita agregar nuevas propiedades
-  return el
+  return el;
 };
 
 const aplicarProxy = (el) => {
@@ -52,9 +51,7 @@ const aplicarProxy = (el) => {
   });
 };
 
-
-
-const $$ = function (s) {
+function $$(s) {
   if (typeof s === "function") {
     document.addEventListener("DOMContentLoaded", s);
     return;
@@ -69,13 +66,13 @@ const $$ = function (s) {
       ? [...s]
       : error(s);
 
-  if (!ele) error(s); // <- agrega esta validación
+  if (!ele) error(s);
 
   const final = DEV_MODO ? aplicarProxy(ele) : aplicarMetodos(ele);
-  return final
-};
+  return final;
+}
 
-const $ = function(s) {
+function $(s) {
   if (typeof s === "function") {
     document.addEventListener("DOMContentLoaded", s);
     return;
@@ -87,9 +84,11 @@ const $ = function(s) {
       ? s
       : error(s);
 
-  const final = DEV_MODO ? aplicarProxy([ele]) : aplicarMetodos([ele])
-  return final
-};
+  if (!ele) error(s);
+
+  const final = DEV_MODO ? aplicarProxy([ele]) : aplicarMetodos([ele]);
+  return final;
+}
 
 // exportacion
 export { $, $$, x };
