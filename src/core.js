@@ -11,9 +11,9 @@ const DEV_MODO = false; // usar FALSE para produccion
 
 const aplicarMetodos = (el) => {
   // evita usar proxy
-  for (const nameMetodo of Object.keys(metodos)) {
-    Object.defineProperty(el, nameMetodo, {
-      value: metodos[nameMetodo],
+  for (const metodo of Object.keys(metodos)) {
+    Object.defineProperty(el, metodo, {
+      value: metodos[metodo],
       writable: false,
       configurable: false,
       enumerable: false,
@@ -21,7 +21,7 @@ const aplicarMetodos = (el) => {
   }
 
   // Evita agregar nuevas propiedades
-  return Object.freeze(el);
+  return el
 };
 
 const aplicarProxy = (el) => {
@@ -72,10 +72,10 @@ const $$ = function (s) {
   if (!ele) error(s); // <- agrega esta validación
 
   const final = DEV_MODO ? aplicarProxy(ele) : aplicarMetodos(ele);
-  return final;
+  return final
 };
 
-const $ = (s) => {
+const $ = function(s) {
   if (typeof s === "function") {
     document.addEventListener("DOMContentLoaded", s);
     return;
@@ -92,4 +92,4 @@ const $ = (s) => {
 };
 
 // exportacion
-export { $, $$, error, x };
+export { $, $$, x };

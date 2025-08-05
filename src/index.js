@@ -3,7 +3,7 @@
 import { $, $$, x } from "./core.js";
 import { evGlobales } from "./metodosGlobales/eventsGlobals.js";
 
-// exportacion global y modulo
+// exportacion global 
 window.$ = $;
 window.$$ = $$;
 window.x = x;
