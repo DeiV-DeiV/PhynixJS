@@ -4,28 +4,14 @@ import { $, $$ } from "../core.js";
 import { modsMap } from "../helpers/modsMap.js";
 import { listenerRegistry } from "./listenerHistory.js";
 
+import { Drag } from "./Drag.js";
 
 
 // metodos globales
 export const metodosGlobales = Object.freeze({
   //funcion interna de Drag
-  mousedown: function (e) {
-    const handlers = listenerRegistry.mousedown;
+  mousedown: Drag,
 
-    for (const [selector, handler] of Object.entries(handlers)) {
-      const target = e.target.closest(selector);
-      if (target) {
-
-        const onMouseMove = (e)=>{}
-        const onMouseUp = (e)=>{}
-        console.log(selector, handler);
-        console.log(e.target);
-
-        window.addEventListener('mousemove',onMouseMove)
-        window.addEventListener('mouseup',onMouseUp)
-      }
-    }
-  },
   //funcion interna de Shortcut
   keydown: function (e) {
     const handlers = listenerRegistry.keydown;

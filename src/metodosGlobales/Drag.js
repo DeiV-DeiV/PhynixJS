@@ -1,77 +1,58 @@
-// metodos/globales/Drag.js
+// metodosGlobales/Drag.js
 
-import { $ } from "../../core.js";
+import { listenerRegistry } from "./listenerHistory.js";
 
-const dragState = new WeakMap();
 
- const Drag = (window.Drag = function (obj) {
-  for (const [parentSelector, chieldSelector] of Object.entries(obj)) {
-    const parents = $(parentSelector);
 
-    for (const parent of parents) {
-      parent.addEventListener("mousedown", (e) => {
+export function Drag(e) {
+  const handlers = listenerRegistry.mousedown;
 
-        
-        
-        const target = e.target.closest(chieldSelector);
-        if (!target) return;
+  for (const [selectorParent, selectorChild] of Object.entries(handlers)) {
+    const parent = e.target.closest(selectorParent);
+    if (parent) {
+      const child = e.target.closest(selectorChild);
+      if (!parent || !child) return;
 
-        if (!dragState.has(target)) {
-          dragState.set(target, {
-            isDraggable: false,
-            offsetX: 0,
-            offsetY: 0,
-            currentX: 0,
-            currentY: 0,
-          });
-          target.style.cursor = "grab";
-          // el.style.position = "relative"; // <-- Necesario para moverse correctamente
+      let offsetX = 0,
+        offsetY = 0,
+        posX = 0,
+        posY = 0;
 
-          if (getComputedStyle(target).position === "static") {
-            target.style.position = "relative";
-          }
-        }
+      child.style.cursor = "grabbing";
+      child.classList.toggle('select')
 
-        const state = dragState.get(target);
-        state.isDraggable = true;
-        state.offsetX = e.clientX - state.currentX;
-        state.offsetY = e.clientY - state.currentY;
+      offsetX = e.clientX - posX;
+      offsetY = e.clientY - posY;
 
-        target.style.cursor = "grabbing";
+      // rectngulos completos
+      const parentRect = parent.getBoundingClientRect();
+      const childRect = child.getBoundingClientRect();
 
-        const onMouseMove = (e) => {
-          if (!state.isDraggable) return;
+      const onMouseMove = (e) => {
+        posX = e.clientX - offsetX;
+        posY = e.clientY - offsetY;
 
-          let newX = e.clientX - state.offsetX;
-          let newY = e.clientY - state.offsetY;
+        //(ancho y alto) de padre e hijo
+        const rectX = parentRect.width - childRect.width;
+        const rectY = parentRect.height - childRect.height;
 
-          // Límites
-          const parentRect = parent.getBoundingClientRect();
-          const targetRect = target.getBoundingClientRect();
+        // Limitar del contenedor
+        const limitX = Math.max(0, Math.min(posX, rectX));
+        const limitY = Math.max(0, Math.min(posY, rectY));
 
-          const minX = 0;
-          const minY = 0;
-          const maxX = parentRect.width - targetRect.width;
-          const maxY = parentRect.height - targetRect.height;
+        child.style.transform = `translate(${limitX}px, ${limitY}px)`;
+      };
 
-          state.currentX = Math.max(minX, Math.min(maxX, newX));
-          state.currentY = Math.max(minY, Math.min(maxY, newY));
+      const onMouseUp = (e) => {
+        child.style.cursor = "grab";
+        child.classList.toggle('select')
 
-          target.style.transform = `translate(${state.currentX}px, ${state.currentY}px)`;
-        };
+        window.removeEventListener("mousemove", onMouseMove);
+        window.removeEventListener("mouseup", onMouseUp);
+      };
 
-        const onMouseUp = () => {
-          state.isDraggable = false;
-
-          target.style.cursor = "grab";
-          window.removeEventListener("mousemove", onMouseMove);
-          window.removeEventListener("mouseup", onMouseUp);
-        };
-
-        window.addEventListener("mousemove", onMouseMove);
-        window.addEventListener("mouseup", onMouseUp);
-        e.preventDefault();
-      });
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("mouseup", onMouseUp);
     }
   }
-});
+}

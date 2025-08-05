@@ -8,7 +8,7 @@ import {
   listenerRegistry,
 } from "./listenerHistory.js";
 
-// funcion independiente
+// metodos globales
 export function evGlobales(ev, handlers) {
   // Agrega al historial de delegacion de eventos
   listenerHistory(ev, handlers);
@@ -35,4 +35,3 @@ export function evGlobales(ev, handlers) {
     eventosRegistrados.add(ev);
   }
 }
-

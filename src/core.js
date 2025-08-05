@@ -1,11 +1,11 @@
 // core.js
-// consume menos memoria, mi punto es ese
+// consume menos memoria, el punto es ese
 
 import { error } from "./helpers/error.js";
 import { metodos } from "./metodos.js";
 
-const DEBUG = false;
-const x = (...args) => DEBUG && console.log(...args);
+
+const x = (...args) => console.log(...args);
 
 const DEV_MODO = false; // usar FALSE para produccion
 
@@ -24,7 +24,7 @@ const aplicarMetodos = (el) => {
   return Object.freeze(el);
 };
 
-const usarProxy = (el) => {
+const aplicarProxy = (el) => {
   return new Proxy(el, {
     get(target, prop) {
       if (prop in target) return target[prop];
@@ -53,7 +53,6 @@ const usarProxy = (el) => {
 };
 
 
-// ejecutadores
 
 const $$ = function (s) {
   if (typeof s === "function") {
@@ -72,7 +71,7 @@ const $$ = function (s) {
 
   if (!ele) error(s); // <- agrega esta validación
 
-  const final = DEV_MODO ? aplicarMetodos(ele) : usarProxy(ele);
+  const final = DEV_MODO ? aplicarProxy(ele) : aplicarMetodos(ele);
   return final;
 };
 
@@ -88,10 +87,9 @@ const $ = (s) => {
       ? s
       : error(s);
 
-  if (!ele) error(s); // <- agrega esta validación
-
-  const final = DEV_MODO ? aplicarMetodos([ele]) : usarProxy([ele]);
-  return final;
+  const final = DEV_MODO ? aplicarProxy([ele]) : aplicarMetodos([ele])
+  return final
 };
 
+// exportacion
 export { $, $$, error, x };
