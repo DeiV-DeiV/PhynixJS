@@ -74,7 +74,11 @@ export function $$(s) {
 
 export function $(s) {
   if (typeof s === "function") {
-    document.addEventListener("DOMContentLoaded", s);
+    
+    document.readyState === 'loading'
+    ?document.addEventListener("DOMContentLoaded", s)
+    : s()
+
     return;
   }
   const ele =
