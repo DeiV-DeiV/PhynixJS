@@ -1,7 +1,7 @@
 // src/index.js
 
 import { $, $$, x } from "./core.js";
-import { evGlobales } from "./metodosGlobales/eventsGlobals.js";
+import { evGlobales } from "./eventsGlobals.js";
 
 // exportacion global
 window.x = x;

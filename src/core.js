@@ -4,7 +4,7 @@
 import { error } from "./helpers/error.js";
 import { metodos } from "./metodos.js";
 
-const x = (...args) => console.log(...args);
+export const x = (...args) => console.log(...args);
 
 const DEV_MODO = false; // usar FALSE para produccion
 
@@ -51,7 +51,7 @@ const aplicarProxy = (el) => {
   });
 };
 
-function $$(s) {
+export function $$(s) {
   if (typeof s === "function") {
     document.addEventListener("DOMContentLoaded", s);
     return;
@@ -72,7 +72,7 @@ function $$(s) {
   return final;
 }
 
-function $(s) {
+export function $(s) {
   if (typeof s === "function") {
     document.addEventListener("DOMContentLoaded", s);
     return;
@@ -90,5 +90,4 @@ function $(s) {
   return final;
 }
 
-// exportacion
-export { $, $$, x };
+
