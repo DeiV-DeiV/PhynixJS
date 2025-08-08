@@ -19,8 +19,7 @@ const aplicarMetodos = (el) => {
     });
   }
 
-  // Evita agregar nuevas propiedades
-  return el;
+  return el   // <----------   ESte era el problema
 };
 
 const aplicarProxy = (el) => {
@@ -66,7 +65,7 @@ export function $$(s) {
       ? [...s]
       : error(s);
 
-  if (!ele) error(s);
+  if (!ele.length) error(s);
 
   const final = DEV_MODO ? aplicarProxy(ele) : aplicarMetodos(ele);
   return final;
@@ -84,14 +83,14 @@ export function $(s) {
 
   const ele =
     typeof s === "string"
-      ? document.querySelector(s)
+      ? [document.querySelector(s)]
       : s instanceof Element
-      ? s
+      ? [s]
       : error(s);
 
-  if (!ele) error(s);
+  if (!ele.length) error(s);
 
-  return aplicarMetodos([ele]);
+  return aplicarMetodos(ele);
  
 }
 
