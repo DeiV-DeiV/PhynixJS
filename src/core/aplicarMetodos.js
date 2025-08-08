@@ -11,5 +11,5 @@ export function aplicarMetodos(el) {
     });
   }
 
-  return el   // <----------   ESte era el problema
+  // return el   // <----------   ESte era el problema
 };
