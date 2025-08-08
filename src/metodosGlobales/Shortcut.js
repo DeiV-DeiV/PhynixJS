@@ -3,6 +3,7 @@
 import { listenerRegistry } from "./listenerHistory.js";
 
 import { modsMap } from "../helpers/modsMap.js";
+import { $ } from "../index.js";
 
 export function Shortcut(e) {
   const handlers = listenerRegistry.keydown;
