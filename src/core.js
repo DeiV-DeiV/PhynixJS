@@ -81,6 +81,7 @@ export function $(s) {
 
     return;
   }
+
   const ele =
     typeof s === "string"
       ? document.querySelector(s)
@@ -90,7 +91,7 @@ export function $(s) {
 
   if (!ele) error(s);
 
-  return DEV_MODO ? aplicarProxy([ele]) : aplicarMetodos([ele]);
+  return aplicarMetodos([ele]);
  
 }
 
