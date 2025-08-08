@@ -1,7 +1,7 @@
 // src/metodosGlobales/eventsGlobals.js
 
 
-import { $ } from "./index.js";
+import { $ } from "./core.js";
 import { metodosGlobales } from "./core/metodosGlobales.js";
 
 

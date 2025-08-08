@@ -1,6 +1,6 @@
 
 
-import { $ } from "../index.js";
+import { $ } from "../core.js";
 import { listenerRegistry } from "./listenerHistory.js";
 
 import { modsMap } from "../helpers/modsMap.js";
