@@ -90,8 +90,8 @@ export function $(s) {
 
   if (!ele) error(s);
 
-  const final = DEV_MODO ? aplicarProxy([ele]) : aplicarMetodos([ele]);
-  return final;
+  return DEV_MODO ? aplicarProxy([ele]) : aplicarMetodos([ele]);
+ 
 }
 
 
