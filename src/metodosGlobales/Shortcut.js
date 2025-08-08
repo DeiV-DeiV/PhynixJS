@@ -1,4 +1,4 @@
-import { $ } from "../core.js";
+
 
 import { listenerRegistry } from "./listenerHistory.js";
 

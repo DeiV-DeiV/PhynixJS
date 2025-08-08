@@ -1,7 +1,7 @@
-// src/metodosGlobales/metodosGlobales.js
+// src/core/metodosGlobales.js
 
-import { Drag } from "./metodosGlobales/Drag.js";
-import { Shortcut } from "./metodosGlobales/Shortcut.js";
+import { Drag } from "../metodosGlobales/Drag.js";
+import { Shortcut } from "../metodosGlobales/Shortcut.js";
 
 
 // metodos globales

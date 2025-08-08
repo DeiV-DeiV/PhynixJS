@@ -1,6 +1,6 @@
 // src/helpers/error.js
 
 // errores personalizados
-export const error = (s) => {
+export function error(s) {
   throw new Error(`Elemento Invalido --> ${s} <--`);
 };

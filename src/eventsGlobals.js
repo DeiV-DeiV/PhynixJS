@@ -1,8 +1,10 @@
 // src/metodosGlobales/eventsGlobals.js
 
-import { $ } from "./core.js";
 
-import { metodosGlobales } from "./metodosGlobales.js";
+import { $ } from "./index.js";
+import { metodosGlobales } from "./core/metodosGlobales.js";
+
+
 import {
   eventosRegistrados,
   listenerHistory,
