@@ -52,10 +52,6 @@ export function $(s) {
   return aplicarProxy(ele);
 }
 
-// exportacion global
-window.$ = $;
-window.$$ = $$;
-window.x = x;
 
 
 

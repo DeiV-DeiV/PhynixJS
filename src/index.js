@@ -3,7 +3,13 @@
 import { $, $$, x } from "./core.js";
 import { evGlobales } from "./eventsGlobals.js";
 
-$,$$,x
+// Hacerlas globales
+window.$ = $;
+window.$$ = $$;
+window.x = x;
+
+// Exportar también para Rollup
+export { $, $$, x };
 
 // Exportacion metodosGlobales |metodo y global|
 
@@ -21,3 +27,5 @@ window.Drag = Drag;
 
 export const Shortcut = (handlers = {}) => evGlobales("keydown", handlers);
 window.Shortcut = Shortcut;
+
+export default $
