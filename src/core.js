@@ -49,7 +49,7 @@ export function $(s) {
 
   if (!ele.length) error(s);
 
-  return aplicarProxy(ele);
+  return aplicarMetodos(ele);
 }
 
 
