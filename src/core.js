@@ -55,7 +55,6 @@ export function $(s) {
   return aplicarMetodos(ele);
 }
 
-// Hacerlas globales
 window.$ = $;
 
 

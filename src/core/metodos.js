@@ -7,6 +7,7 @@ import { drag } from "../metodos/drag.js";
 import { get } from "../metodos/get.js";
 import { post } from "../metodos/post.js";
 import { on } from "../metodos/on.js";
+import { append } from "../metodos/append.js";
 
 
 
@@ -20,6 +21,7 @@ export const metodos = Object.freeze({
 
   toggleClass,
   css,
+  append,
   drag,
   on,
   get,
