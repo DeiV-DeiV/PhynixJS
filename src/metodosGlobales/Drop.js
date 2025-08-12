@@ -26,3 +26,4 @@ export function Drop(objs, { ext = ["png", "jpg", "jpeg"] } = {}) {
   });
 }
 
+window.Drop = Drop
