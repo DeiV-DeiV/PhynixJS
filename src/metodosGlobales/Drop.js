@@ -15,6 +15,10 @@ export function Drop(objs, { ext = ["png", "jpg", "jpeg"] } = {}) {
     e.preventDefault();
 
     const files = [...e.dataTransfer.files];
+
+    // 1️⃣ Si no hay archivos, es drag interno → ignorar
+    if (files.length === 0) return;
+
     const extInvalida = files.filter((file) => {
       const extenxiones = file.name.split(".").pop().toLowerCase();
       return !extAll.includes(extenxiones);
