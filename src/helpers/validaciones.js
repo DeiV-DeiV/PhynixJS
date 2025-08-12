@@ -5,7 +5,10 @@ export const validaciones = Object.freeze({
     if (!html) throw new Error("Ingresa template");
     if (typeof html !== "string") throw new Error("Solo acepto STRING");
   },
-  val(val) {},
+
+  val(val) {
+    if(typeof val !== 'string') throw new Error('val espera string')
+  },
 
   css(prop, val) {
     if (typeof prop !== "string")

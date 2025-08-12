@@ -72,7 +72,7 @@ window.Click = Click;
 export const Input = (handlers = {}) => evGlobales("input", handlers);
 window.Input = Input;
 
-export const Drag = (handlers = {}) => evGlobales("mousedown", handlers);
+export const Drag = (objs = {}) => evGlobales("mousedown", objs);
 window.Drag = Drag;
 
 export const Shortcut = (handlers = {}) => evGlobales("keydown", handlers);
