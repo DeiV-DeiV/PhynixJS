@@ -4,7 +4,7 @@
 import {error} from './helpers/error.js'
 import {aplicarMetodos} from './core/aplicarMetodos.js'
 import {aplicarProxy} from './core/aplicarProxy.js'
-import { evGlobales } from './eventsGlobals.js';
+import { On } from './metodosGlobales/On.js';
 
 
 export const x = console.log
@@ -63,20 +63,16 @@ window.$ = $;
 
 // Exportacion metodosGlobales |metodo y global|
 
-export const On = (ev, handler = {}) => evGlobales(ev, handler);
-window.On = On;
 
-export const Click = (handlers = {}) => evGlobales("click", handlers);
+export const Click = (obj = {}) => On("click", obj);
 window.Click = Click;
 
-export const Input = (handlers = {}) => evGlobales("input", handlers);
+export const Input = (obj = {}) => On("input", obj);
 window.Input = Input;
 
-export const Drag = (objs = {}) => evGlobales("mousedown", objs);
-window.Drag = Drag;
 
-export const Shortcut = (handlers = {}) => evGlobales("keydown", handlers);
-window.Shortcut = Shortcut;
+
+
 
 
 

@@ -1,58 +1,58 @@
 // metodosGlobales/Drag.js
 
-import { listenerRegistry } from "./listenerHistory.js";
+import { On } from "./On.js";
 
+export function Drag(obj = {}) {
+  On("mousedown", function (e) {
+    for (const [selectorParent, selectorChild] of Object.entries(obj)) {
+      const parent = e.target.closest(selectorParent);
+      if (parent) {
+        const child = e.target.closest(selectorChild);
+        if (!parent || !child) return;
 
+        let offsetX = 0,
+          offsetY = 0,
+          posX = 0,
+          posY = 0;
 
-export function Drag(e) {
-  const handlers = listenerRegistry.mousedown;
+        child.style.cursor = "grabbing";
+        child.classList.toggle("select");
 
-  for (const [selectorParent, selectorChild] of Object.entries(handlers)) {
-    const parent = e.target.closest(selectorParent);
-    if (parent) {
-      const child = e.target.closest(selectorChild);
-      if (!parent || !child) return;
+        offsetX = e.clientX - posX;
+        offsetY = e.clientY - posY;
 
-      let offsetX = 0,
-        offsetY = 0,
-        posX = 0,
-        posY = 0;
+        // rectngulos completos
+        const parentRect = parent.getBoundingClientRect();
+        const childRect = child.getBoundingClientRect();
 
-      child.style.cursor = "grabbing";
-      child.classList.toggle('select')
+        const onMouseMove = (e) => {
+          posX = e.clientX - offsetX;
+          posY = e.clientY - offsetY;
 
-      offsetX = e.clientX - posX;
-      offsetY = e.clientY - posY;
+          //(ancho y alto) de padre e hijo
+          const rectX = parentRect.width - childRect.width;
+          const rectY = parentRect.height - childRect.height;
 
-      // rectngulos completos
-      const parentRect = parent.getBoundingClientRect();
-      const childRect = child.getBoundingClientRect();
+          // Limitar del contenedor
+          const limitX = Math.max(0, Math.min(posX, rectX));
+          const limitY = Math.max(0, Math.min(posY, rectY));
 
-      const onMouseMove = (e) => {
-        posX = e.clientX - offsetX;
-        posY = e.clientY - offsetY;
+          child.style.transform = `translate(${limitX}px, ${limitY}px)`;
+        };
 
-        //(ancho y alto) de padre e hijo
-        const rectX = parentRect.width - childRect.width;
-        const rectY = parentRect.height - childRect.height;
+        const onMouseUp = (e) => {
+          child.style.cursor = "grab";
+          child.classList.toggle("select");
 
-        // Limitar del contenedor
-        const limitX = Math.max(0, Math.min(posX, rectX));
-        const limitY = Math.max(0, Math.min(posY, rectY));
+          window.removeEventListener("mousemove", onMouseMove);
+          window.removeEventListener("mouseup", onMouseUp);
+        };
 
-        child.style.transform = `translate(${limitX}px, ${limitY}px)`;
-      };
-
-      const onMouseUp = (e) => {
-        child.style.cursor = "grab";
-        child.classList.toggle('select')
-
-        window.removeEventListener("mousemove", onMouseMove);
-        window.removeEventListener("mouseup", onMouseUp);
-      };
-
-      window.addEventListener("mousemove", onMouseMove);
-      window.addEventListener("mouseup", onMouseUp);
+        window.addEventListener("mousemove", onMouseMove);
+        window.addEventListener("mouseup", onMouseUp);
+      }
     }
-  }
+  });
 }
+
+window.Drag = Drag

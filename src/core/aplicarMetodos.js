@@ -1,4 +1,4 @@
-import { metodos } from "./metodos";
+import { metodos } from "./metodos.js";
 
 export function aplicarMetodos(el) {
   // evita usar proxy

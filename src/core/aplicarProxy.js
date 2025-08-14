@@ -1,4 +1,4 @@
-import { metodos } from "./metodos";
+import { metodos } from "./metodos.js";
 
 export function aplicarProxy (el) {
   return new Proxy(el, {

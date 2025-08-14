@@ -1,29 +1,24 @@
-
-
-import { $ } from "../core.js";
-import { listenerRegistry } from "./listenerHistory.js";
-
 import { modsMap } from "../helpers/modsMap.js";
+import { On } from "./On.js";
 
-export function Shortcut(e) {
-  const handlers = listenerRegistry.keydown;
-  if (!handlers) console.log(`falta agregar....`);
+export function Shortcut(obj = {}) {
+  On("keydown", function (e) {
+    for (const [keypress, callback] of Object.entries(obj)) {
+      const partes = keypress.toLowerCase().split("+");
+      if (partes.length < 2 || partes.length > 4) continue;
 
-  for (const [keypress, handler] of Object.entries(handlers)) {
-    const partes = keypress.toLowerCase().split("+");
-    if (partes.length < 2 || partes.length > 4) continue;
+      const keyChar = partes.pop();
+      const modifiers = partes;
 
-    const keyChar = partes.pop();
-    const modifiers = partes;
+      const allModsMatch = modifiers.every(
+        (mod) => modsMap[mod] && e[modsMap[mod]]
+      );
 
-    const allModsMatch = modifiers.every(
-      (mod) => modsMap[mod] && e[modsMap[mod]]
-    );
+      const keyMatch = e.key.toLowerCase() === keyChar;
 
-    const keyMatch = e.key.toLowerCase() === keyChar;
-
-    if (allModsMatch && keyMatch) {
-      handler.call($(e.target), e);
+      if (allModsMatch && keyMatch) {
+        callback.call(e.target, e);
+      }
     }
-  }
+  });
 }
