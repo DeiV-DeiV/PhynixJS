@@ -87,7 +87,7 @@ export function validate(args = {}) {
   const errors = [];
   for (const [key, { fn, msg }] of Object.entries(validator)) {
     const value = args[key];
-    if (fn(value)) {
+    if (key in args && fn(value)) {
       // Formateamos arrays de forma legible
       const errorMsg = Array.isArray(value)
         ? `${msg}: [${value.map(v => JSON.stringify(v)).join(", ")}]`
