@@ -52,46 +52,39 @@ export const validaciones = Object.freeze({
 
 // -------------------------------------------------
 
-export function validate({ str, callback, object, array, number }) {
-  if (typeof str !== "string" || !str.trim()) {
-    console.error("no es un string");
-  }
-
-  if (typeof callback !== "function" || callback === null) {
-    console.error("debe ser una function");
-  }
-
-  if (typeof object !== "object" || object === null) {
-    console.error("Solo acepto Objeto");
-  }
-
-  if (!Array.isArray(array)) {
-    console.error("Esperando un arreglo");
-  }
-
-  if (typeof number !== "number") {
-    console.error("Esperando un numero");
-  }
-}
-window.Validate = validate
-
-// ejemplo de uso
-function uso(html, data, fn, elementos = {}, num) {
-  validate({
-    str: html,
-    callback: fn,
-    object: data,
-    array: elementos,
-    number: num,
-  });
-}
-
-uso(
-  "template.html",
-  { nombre: "test" },
-  function () {
-    console.log("callback ok");
+//dicionario de validaciones
+const validator = Object.freeze({
+  str: {
+    fn: (v) => typeof v !== "string" || !v.trim(),
+    msg: "No es un string válido",
   },
-  ["item1", "item2"],
-  99
-);
+
+  callback: {
+    fn: (v) => typeof v !== "function" || v === null,
+    msg: "Debe ser una función",
+  },
+
+  object: {
+    fn: (v) => typeof v !== "object" || v === null,
+    msg: "Solo acepto objeto",
+  },
+
+  array: {
+    fn: (v) => !Array.isArray(v),
+    msg: "Esperando un arreglo",
+  },
+
+  number: {
+    fn: (v) => typeof v !== "number",
+    msg: "Esperando un número",
+  },
+});
+
+export function validate(args={}) {
+  for (const [key, { fn, msg }] of Object.entries(validator)) {
+    if(fn(args[key])){
+      console.log(`${msg}`);
+    }
+  }
+}
+window.Validate = validate;
