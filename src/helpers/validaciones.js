@@ -11,7 +11,7 @@ export const validaciones = Object.freeze({
         console.error(`El ${selector} no existe`);
       }
 
-      if(typeof callback !== 'function' || callback === null){
+      if (typeof callback !== "function" || callback === null) {
         console.error(`El ${callback} no es una funcion`);
       }
     }
@@ -49,3 +49,49 @@ export const validaciones = Object.freeze({
       throw new Error("Callback debe ser función para post");
   },
 });
+
+// -------------------------------------------------
+
+export function validate({ str, callback, object, array, number }) {
+  if (typeof str !== "string" || !str.trim()) {
+    console.error("no es un string");
+  }
+
+  if (typeof callback !== "function" || callback === null) {
+    console.error("debe ser una function");
+  }
+
+  if (typeof object !== "object" || object === null) {
+    console.error("Solo acepto Objeto");
+  }
+
+  if (!Array.isArray(array)) {
+    console.error("Esperando un arreglo");
+  }
+
+  if (typeof number !== "number") {
+    console.error("Esperando un numero");
+  }
+}
+window.Validate = validate
+
+// ejemplo de uso
+function uso(html, data, fn, elementos = {}, num) {
+  validate({
+    str: html,
+    callback: fn,
+    object: data,
+    array: elementos,
+    number: num,
+  });
+}
+
+uso(
+  "template.html",
+  { nombre: "test" },
+  function () {
+    console.log("callback ok");
+  },
+  ["item1", "item2"],
+  99
+);
