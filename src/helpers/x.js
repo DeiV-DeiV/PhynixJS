@@ -12,6 +12,8 @@ const _x = Object.freeze({
   bgGreen: (t) => `\x1b[42m${t}\x1b[0m`,
   bgYellow: (t) => `\x1b[43m${t}\x1b[0m`,
   bgCyan: (t) => `\x1b[46m${t}\x1b[0m`,
+  black: (t) => `\x1b[30m${t}\x1b[0m`,
+gray: (t) => `\x1b[90m${t}\x1b[0m`,
 })
 
 // Función auxiliar para formatear cualquier valor
@@ -24,14 +26,11 @@ function formatValue(v) {
 
 export function x (...args){
 
-    const argumentos = args.map(formatValue).join(' ')
+    const argumentos = args.map(formatValue).join(', ')
 
     const wrapper = {
         arg: argumentos,
-        log(){
-            console.log(this.arg)
-            return this
-        }
+        
     }
     for(const [key,fn] of Object.entries(_x)){
         wrapper[key] = function(){
@@ -39,6 +38,9 @@ export function x (...args){
             return this
         }
     }
+
+    console.log(wrapper.arg);
+    
 
     return wrapper
 }
