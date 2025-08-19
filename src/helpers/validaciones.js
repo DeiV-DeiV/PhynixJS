@@ -1,5 +1,7 @@
 // src/helpers/validaciones.js
 
+import { x } from "./x";
+
 export const validaciones = Object.freeze({
   on(ev, obj) {
     if (typeof ev !== "string" || !ev.trim()) {
@@ -92,27 +94,20 @@ const validator = Object.freeze({
 });
 
 export function validate(args = {}) {
-  const errors = [];
-
   for (const [key, { fn, msg }] of Object.entries(validator)) {
     const value = args[key];
 
     if (key in args && fn(value)) {
-      // Formateamos arrays de forma legible
-      const errorMsg = Array.isArray(value)
-        ? `${msg}: [${value
-            .map((v, i) => {
-              JSON.stringify(v);
-              i + 1;
-            })
+      const msgError = Array.isArray(value)
+        ? `${msg} :\n [${value
+            .map((v, i) =>
+              fn(v) ? `${x(JSON.stringify(v)).red()}` : `${x(v).cyan()}`
+            )
             .join(", ")}]`
         : `${msg}: ${value}`;
-      errors.push(errorMsg);
-    }
-  }
 
-  if (errors.length > 0) {
-    console.warn("Errores de validación:\n" + errors.join("\n"));
+        console.log(msgError)
+    }
   }
 }
 window.Validate = validate;

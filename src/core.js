@@ -7,8 +7,7 @@ import {aplicarProxy} from './core/aplicarProxy.js'
 import { On } from './metodosGlobales/On.js';
 
 
-export const x = console.log
-window.x = x;
+
 
 const DEV_MODO = false; // usar FALSE para produccion
 
