@@ -54,7 +54,15 @@ export const validaciones = Object.freeze({
 
 //dicionario de validaciones
 const validator = Object.freeze({
-  str: {
+  node: {
+    fn: (v) =>
+      Array.isArray(v)
+        ? v.some((el) => !(el instanceof Node))
+        : !(v instanceof Node),
+    msg: "No es un Node",
+  },
+
+  string: {
     fn: (v) =>
       Array.isArray(v)
         ? v.some((el) => typeof el !== "string" || !el.trim())
@@ -85,20 +93,26 @@ const validator = Object.freeze({
 
 export function validate(args = {}) {
   const errors = [];
+
   for (const [key, { fn, msg }] of Object.entries(validator)) {
     const value = args[key];
+
     if (key in args && fn(value)) {
       // Formateamos arrays de forma legible
       const errorMsg = Array.isArray(value)
-        ? `${msg}: [${value.map(v => JSON.stringify(v)).join(", ")}]`
+        ? `${msg}: [${value
+            .map((v, i) => {
+              JSON.stringify(v);
+              i + 1;
+            })
+            .join(", ")}]`
         : `${msg}: ${value}`;
       errors.push(errorMsg);
     }
   }
+
   if (errors.length > 0) {
     console.warn("Errores de validación:\n" + errors.join("\n"));
-  } else {
-    console.log("Validación exitosa ✅");
   }
 }
 window.Validate = validate;

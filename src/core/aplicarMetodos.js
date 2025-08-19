@@ -11,5 +11,25 @@ export function aplicarMetodos(el) {
     });
   }
 
-  return el   
-};
+  return el;
+}
+
+export function applyMetodos(el) {
+  const wrapper = {
+    ele: Array.isArray(el) ? el : [el],
+    apply(fn) {
+      for (const el of this.ele) fn(el);
+      return this;
+    },
+  };
+  for (const [key, fn] of Object.entries(metodos)) {
+    wrapper[key] = function (...args) {
+      wrapper.apply(function (elm) {
+        fn(elm, ...args);
+      });
+      return wrapper;
+    };
+  }
+
+  return wrapper;
+}

@@ -2,7 +2,7 @@
 // consume menos memoria, el punto es ese
 
 import {error} from './helpers/error.js'
-import {aplicarMetodos} from './core/aplicarMetodos.js'
+import {aplicarMetodos, applyMetodos} from './core/aplicarMetodos.js'
 import {aplicarProxy} from './core/aplicarProxy.js'
 import { On } from './metodosGlobales/On.js';
 
@@ -29,8 +29,8 @@ export function $$(s) {
 
   if (!ele.length) error(s);
 
-  const final = DEV_MODO ? aplicarProxy(ele) : aplicarMetodos(ele);
-  return final;
+  
+  return applyMetodos(ele)
 }
 window.$$ = $$;
 
@@ -45,14 +45,14 @@ export function $(s) {
 
   const ele =
     typeof s === "string"
-      ? [document.querySelector(s)]
+      ? document.querySelector(s)
       : s instanceof Element
-      ? [s]
+      ? s
       : error(s);
 
   if (!ele.length) error(s);
 
-  return aplicarMetodos(ele);
+  return applyMetodos(ele);
 }
 
 window.$ = $;

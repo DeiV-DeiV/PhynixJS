@@ -1,24 +1,25 @@
 // src/component.js
 
+import { Diffing } from "./diffing.js";
 import { validate } from "./helpers/validaciones.js";
 
 const componentsCargados = new Set();
 
 export function Component(
-  { selector = "body", method = "GET", template, script, style },
+  { selector = "body", method = "GET", template, script, style,data = {} },
   { once = true } = {}
 ) {
-  validate({str:[selector,method,template,script,style]})
+  validate({string:[selector,method,template,script,style],object:data})
   
   return async function () {
-    if (!script && !style) return;
+    if (!template && !script && !style) return;
 
     if (once && componentsCargados.has(template)) {
       return console.warn(`Componente cargado en el ${selector}...`);
     }
 
     const self = document.querySelector(selector);
-    if (!self) console.warn(`--> ${selector} <-- no existe en el documento...`);
+    if (!self) return console.warn(`--> ${selector} <-- no existe en el documento...`);
 
     try {
       const opts = {
@@ -28,9 +29,12 @@ export function Component(
       
       const res = await fetch(`./components/${template}`, opts);
       const html = await res.text();
-      self.insertAdjacentHTML('beforeend',html)
-      // html = html.replace(/{{(.*?)}}/g, (_, key) => data[key.trim()] ?? "");
+     const _html = html.replace(/{{(.*?)}}/g, (_, key) => data[key.trim()] ?? "");
       // console.log(html)
+
+      // Usar Diffing en lugar de insertAdjacentHTML
+      const virtualDOM = new DOMParser().parseFromString(_html, 'text/html').body;
+      Diffing(self, virtualDOM);
 
       if (once) componentsCargados.add(template);
 
@@ -59,7 +63,9 @@ export function Component(
       const res = await fetch(`./components/error/error.html`);
       const html = await res.text();
 
-      self.innerHTML = html;
+      // Usar Diffing en lugar de insertAdjacentHTML
+      const virtualDOM = new DOMParser().parseFromString(html, 'text/html').body;
+      Diffing(self, virtualDOM);
     }
   };
 }
