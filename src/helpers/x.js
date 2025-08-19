@@ -14,13 +14,28 @@ const _x = Object.freeze({
   bgCyan: (t) => `\x1b[46m${t}\x1b[0m`,
 })
 
-export function x (args){
+// Función auxiliar para formatear cualquier valor
+function formatValue(v) {
+  if (typeof v === "object") {
+    return JSON.stringify(v, null, 2);
+  }
+  return String(v);
+}
+
+export function x (...args){
+
+    const argumentos = args.map(formatValue).join(' ')
+
     const wrapper = {
-        args
+        arg: argumentos,
+        log(){
+            console.log(this.arg)
+            return this
+        }
     }
     for(const [key,fn] of Object.entries(_x)){
         wrapper[key] = function(){
-            console.log(fn(this.args))
+            this.arg = fn(this.arg)
             return this
         }
     }
