@@ -1,4 +1,4 @@
-import { validate } from "./helpers/validaciones.js";
+
 
 export function Diffing(nodeReal, nodeVirtual) {
   // validate({ node: [nodeReal, nodeVirtual] });
