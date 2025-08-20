@@ -1,7 +1,5 @@
 // src/helpers/validaciones.js
 
-
-
 export const validaciones = Object.freeze({
   on(ev, obj) {
     if (typeof ev !== "string" || !ev.trim()) {
