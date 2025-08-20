@@ -101,7 +101,7 @@ export function validate(args = {}) {
       const msgError = Array.isArray(value)
         ? `${msg} :\n [${value
             .map((v, i) =>
-              fn(v) ? `${x(JSON.stringify(v)).red()}` : `${x(v).cyan()}`
+              fn(v) ? `${JSON.stringify(v)}` : `${v}`
             )
             .join(", ")}]`
         : `${msg}: ${value}`;

@@ -16,33 +16,11 @@ const _x = Object.freeze({
 gray: (t) => `\x1b[90m${t}\x1b[0m`,
 })
 
-// Función auxiliar para formatear cualquier valor
-function formatValue(v) {
-  if (typeof v === "object") {
-    return JSON.stringify(v, null, 2);
-  }
-  return String(v);
-}
+
+
 
 export function x (...args){
-
-    const argumentos = args.map(formatValue).join(', ')
-
-    const wrapper = {
-        arg: argumentos,
-        
-    }
-    for(const [key,fn] of Object.entries(_x)){
-        wrapper[key] = function(){
-            this.arg = fn(this.arg)
-            return this
-        }
-    }
-
-    console.log(wrapper.arg);
-    
-
-    return wrapper
+  return console.log(...args)
 }
 
 window.x = x
