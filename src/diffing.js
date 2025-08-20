@@ -5,8 +5,8 @@ export function Diffing(nodeReal, nodeVirtual) {
     nodeReal.nodeType !== nodeVirtual.nodeType ||
     nodeReal.nodeName !== nodeVirtual.nodeName
   ) {
-     nodeReal.replaceWith(nodeVirtual.cloneNode(true));
-     return
+    nodeReal.replaceWith(nodeVirtual.cloneNode(true));
+    return;
   }
 
   //2️⃣ Sincronizamos atributos
