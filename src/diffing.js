@@ -1,7 +1,7 @@
 import { validate } from "./helpers/validaciones.js";
 
 export function Diffing(nodeReal, nodeVirtual) {
-  validate({ string: [nodeReal, nodeVirtual] });
+  // validate({ node: [nodeReal, nodeVirtual] });
 
   if (
     nodeReal.nodeType !== nodeVirtual.nodeType ||
