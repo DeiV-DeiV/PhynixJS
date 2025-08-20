@@ -1,5 +1,3 @@
-
-
 export function Diffing(nodeReal, nodeVirtual) {
   // validate({ node: [nodeReal, nodeVirtual] });
 
@@ -8,7 +6,6 @@ export function Diffing(nodeReal, nodeVirtual) {
     nodeReal.nodeName !== nodeVirtual.nodeName
   ) {
     return nodeReal.replaceWith(nodeVirtual.cloneNode(true));
-    
   }
 
   //2️⃣ Sincronizamos atributos
@@ -33,7 +30,7 @@ export function Diffing(nodeReal, nodeVirtual) {
   const realChildren = [...realNode.childNodes];
   const virtualChildren = [...virtualNode.childNodes];
   const nodeTotal = Math.max(realChildren.length, virtualChildren.length);
-  
+
   for (let i = 0; i < nodeTotal; i++) {
     if (!realChildren[i] && virtualChildren[i]) {
       // Agregamos nuevo nodo
