@@ -6,11 +6,14 @@ import { validate } from "./helpers/validaciones.js";
 const componentsCargados = new Set();
 
 export function Component(
-  { selector = "body", method = "GET", template, script, style,data = {} },
+  { selector = "body", method = "GET", template, script, style, data = {} },
   { once = true } = {}
 ) {
-  validate({string:[selector,method,template,script,style],object:data})
-  
+  validate({
+    string: [selector, method, template, script, style],
+    object: data,
+  });
+
   return async function () {
     if (!template && !script && !style) return;
 
@@ -19,21 +22,27 @@ export function Component(
     }
 
     const self = document.querySelector(selector);
-    if (!self) return console.warn(`--> ${selector} <-- no existe en el documento...`);
+    if (!self)
+      return console.warn(`--> ${selector} <-- no existe en el documento...`);
 
     try {
       const opts = {
         method: method,
       };
 
-      
       const res = await fetch(`./components/${template}`, opts);
       const html = await res.text();
-     const _html = html.replace(/{{(.*?)}}/g, (_, key) => data[key.trim()] ?? "");
+      const _html = html.replace(
+        /{{(.*?)}}/g,
+        (_, key) => data[key.trim()] ?? ""
+      );
       // console.log(html)
 
       // Usar Diffing en lugar de insertAdjacentHTML
-      const virtualDOM = new DOMParser().parseFromString(_html, 'text/html').body;
+      const virtualDOM = new DOMParser().parseFromString(
+        _html,
+        "text/html"
+      ).body;
       Diffing(self, virtualDOM);
 
       if (once) componentsCargados.add(template);
@@ -64,7 +73,10 @@ export function Component(
       const html = await res.text();
 
       // Usar Diffing en lugar de insertAdjacentHTML
-      const virtualDOM = new DOMParser().parseFromString(html, 'text/html').body;
+      const virtualDOM = new DOMParser().parseFromString(
+        html,
+        "text/html"
+      ).body;
       Diffing(self, virtualDOM);
     }
   };
@@ -73,4 +85,3 @@ export function Component(
 window.Component = Component;
 
 console.log(componentsCargados);
-
