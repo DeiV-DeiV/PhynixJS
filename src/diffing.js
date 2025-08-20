@@ -28,7 +28,7 @@ export function Diffing(nodeReal, nodeVirtual) {
 
   // 3️⃣ Sincronizar hijos
   const realChildren = [...nodeReal.childNodes];
-  const virtualChildren = [...virtualNode.childNodes];
+  const virtualChildren = [...node.childNodes];
   const nodeTotal = Math.max(realChildren.length, virtualChildren.length);
 
   for (let i = 0; i < nodeTotal; i++) {
