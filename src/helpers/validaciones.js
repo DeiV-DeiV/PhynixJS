@@ -1,6 +1,6 @@
 // src/helpers/validaciones.js
 
-import { x } from "./x";
+
 
 export const validaciones = Object.freeze({
   on(ev, obj) {
