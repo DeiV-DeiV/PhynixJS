@@ -74,10 +74,3 @@ window.Component = Component;
 
 console.log(componentsCargados);
 
-// ejemplos de uso
-
-Component({
-  template: "",
-  style: "",
-  script: "",
-});
