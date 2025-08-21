@@ -6,7 +6,7 @@ import { validate } from "../helpers/validaciones";
 
 export function append(html) {
 
-  validate({str})
+  validate({str:html})
 
   for (const el of this) {
     el.insertAdjacentHTML("beforeend", html);
