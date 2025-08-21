@@ -15,7 +15,7 @@ export function Component(
   });
 
   return async function () {
-    if (!template && !script && !style) return;
+    
 
     if (once && componentsCargados.has(template)) {
       return console.warn(`Componente cargado en el ${selector}...`);
