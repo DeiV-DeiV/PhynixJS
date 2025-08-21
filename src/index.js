@@ -9,8 +9,6 @@ import { Drop } from "./metodosGlobales/Drop.js";
 import { On } from "./metodosGlobales/On.js";
 import { Shortcut } from "./metodosGlobales/Shortcut.js";
 
-
-
-$, $$, x, On, Click, Input, Drag, Shortcut, Drop,Component,validate
+$, $$, x, On, Click, Input, Drag, Shortcut, Drop, Component, validate;
 
 export default $;

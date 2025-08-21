@@ -1,6 +1,11 @@
+import { validate } from "./helpers/validaciones.js";
+
 export function Diffing(nodeReal, nodeVirtual) {
-  // validate({ string: [nodeReal, nodeVirtual] });
-  if(!nodeReal && !nodeVirtual) return
+  validate({ node: [nodeReal, nodeVirtual] });
+
+  if (nodeReal && !nodeVirtual) {
+    return nodeReal.remove();
+  }
 
   if (
     nodeReal.nodeType !== nodeVirtual.nodeType ||

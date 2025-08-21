@@ -9,50 +9,47 @@ export function Drag(obj = {}) {
       if (parent) {
         const child = e.target.closest(selectorChild);
         if (!parent || !child) return;
+        // rectngulos completos
 
-        let offsetX = 0,
-          offsetY = 0,
-          posX = 0,
-          posY = 0;
+        let offsetX = e.clientX - child.getBoundingClientRect().left;
+        let offsetY = e.clientY - child.getBoundingClientRect().top;
 
         child.style.cursor = "grabbing";
         child.classList.toggle("select");
 
-        offsetX = e.clientX - posX;
-        offsetY = e.clientY - posY;
-
-        // rectngulos completos
-        const parentRect = parent.getBoundingClientRect();
-        const childRect = child.getBoundingClientRect();
-
         const onMouseMove = (e) => {
-          posX = e.clientX - offsetX;
-          posY = e.clientY - offsetY;
-
-          //(ancho y alto) de padre e hijo
-          const rectX = parentRect.width - childRect.width;
-          const rectY = parentRect.height - childRect.height;
+          const parentRect = parent.getBoundingClientRect();
+          const childRect = child.getBoundingClientRect();
+          
+          let posX = e.clientX - parentRect.left - offsetX;
+          let posY = e.clientY - parentRect.top - offsetY;
 
           // Limitar del contenedor
-          const limitX = Math.max(0, Math.min(posX, rectX));
-          const limitY = Math.max(0, Math.min(posY, rectY));
+          const limitX = Math.max(
+            0,
+            Math.min(posX, parentRect.width - childRect.width)
+          );
+          const limitY = Math.max(
+            0,
+            Math.min(posY, parentRect.height - childRect.height)
+          );
 
           child.style.transform = `translate(${limitX}px, ${limitY}px)`;
         };
 
         const onMouseUp = (e) => {
           child.style.cursor = "grab";
-          child.classList.toggle("select");
+          child.classList.toggle("select"); //Elmina 'select'
 
-          window.removeEventListener("mousemove", onMouseMove);
-          window.removeEventListener("mouseup", onMouseUp);
+          document.body.removeEventListener("mousemove", onMouseMove);
+          document.body.removeEventListener("mouseup", onMouseUp);
         };
 
-        window.addEventListener("mousemove", onMouseMove);
-        window.addEventListener("mouseup", onMouseUp);
+        document.body.addEventListener("mousemove", onMouseMove);
+        document.body.addEventListener("mouseup", onMouseUp);
       }
     }
   });
 }
 
-window.Drag = Drag
+window.Drag = Drag;
