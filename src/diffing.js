@@ -1,5 +1,5 @@
 export function Diffing(nodeReal, nodeVirtual) {
-  // validate({ str: [nodeReal, nodeVirtual] });
+  // validate({ string: [nodeReal, nodeVirtual] });
 
   if (
     nodeReal.nodeType !== nodeVirtual.nodeType ||
