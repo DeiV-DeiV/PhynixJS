@@ -1,4 +1,6 @@
 // src/metodos/toggleClass.js
+
+
 export function toggleClass(classname) {
   
   const clase = classname.trim().split(/\s+/);
