@@ -9,6 +9,13 @@ export function Diffing(nodeReal, nodeVirtual) {
     return;
   }
 
+  if (realNode.nodeType === Node.TEXT_NODE) {
+    if (realNode.textContent !== virtualNode.textContent) {
+      realNode.textContent = virtualNode.textContent;
+    }
+    return;
+  }
+
   //2️⃣ Sincronizamos atributos
   const realAttrs = [...nodeReal.attributes];
   const virtualAttrs = [...nodeVirtual.attributes];
