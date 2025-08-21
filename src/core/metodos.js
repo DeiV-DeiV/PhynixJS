@@ -48,7 +48,9 @@ export const metodos = Object.freeze({
   },
 
   containsClass(classname) {
-    for (let el of this) ;
+    for (let el of this){
+      
+    };
     return this;
   },
 
