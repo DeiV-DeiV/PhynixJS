@@ -49,7 +49,7 @@ export const metodos = Object.freeze({
 
   containsClass(classname) {
     for (let el of this){
-      
+      if(el.classList.contains(classname)) return true
     };
     return this;
   },
