@@ -36,14 +36,15 @@ export function Component(
         /{{(.*?)}}/g,
         (_, key) => data[key.trim()] ?? ""
       );
-      // console.log(html)
+      
+      self.insertAdjacentHTML('beforeend', _html)
 
       // Usar Diffing en lugar de insertAdjacentHTML
-      const virtualDOM = new DOMParser().parseFromString(
-        _html,
-        "text/html"
-      ).body;
-      Diffing(self, virtualDOM);
+      // const virtualDOM = new DOMParser().parseFromString(
+      //   _html,
+      //   "text/html"
+      // ).body;
+      // Diffing(self, virtualDOM);
 
       if (once) componentsCargados.add(template);
 
@@ -73,11 +74,7 @@ export function Component(
       const html = await res.text();
 
       // Usar Diffing en lugar de insertAdjacentHTML
-      const virtualDOM = new DOMParser().parseFromString(
-        html,
-        "text/html"
-      ).body;
-      Diffing(self, virtualDOM);
+      document.body.insertAdjacentHTML('beforeend',html)
     }
   };
 }

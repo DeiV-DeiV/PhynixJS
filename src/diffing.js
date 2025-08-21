@@ -22,7 +22,7 @@ export function Diffing(nodeReal, nodeVirtual) {
     return;
   }
 
-  //2️⃣ Sincronizamos atributos
+  //2 Sincronizamos atributos
   const realAttrs = [...nodeReal.attributes];
   const virtualAttrs = [...nodeVirtual.attributes];
 
