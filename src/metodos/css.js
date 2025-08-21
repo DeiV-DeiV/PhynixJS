@@ -1,6 +1,6 @@
 // metodos/css.js
 
-import { validate } from "../helpers/validaciones";
+import { validate } from "../helpers/validaciones.js";
 
 export function css(style = {}) {
   this._forEach((el) => {
