@@ -2,7 +2,7 @@
 
 
 export function toggleClass(classname) {
-  va
+  validate
   const clase = classname.trim().split(/\s+/);
   this._forEach((el) => {
     for (let cls of clase) el.classList.toggle(cls);
