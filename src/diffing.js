@@ -9,9 +9,9 @@ export function Diffing(nodeReal, nodeVirtual) {
     return;
   }
 
-  if (realNode.nodeType === Node.TEXT_NODE) {
-    if (realNode.textContent !== virtualNode.textContent) {
-      realNode.textContent = virtualNode.textContent;
+  if (nodeReal.nodeType === Node.TEXT_NODE) {
+    if (nodeReal.textContent !== virtualNode.textContent) {
+      nodeReal.textContent = virtualNode.textContent;
     }
     return;
   }
