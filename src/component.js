@@ -84,4 +84,4 @@ export function Component(
 // exportacion global
 window.Component = Component;
 
-console.log(componentsCargados);
+
