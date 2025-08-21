@@ -29,7 +29,7 @@ export function $$(s) {
   if (!ele.length) error(s);
 
   
-  return applyMetodos(ele)
+  return aplicarMetodos(ele)
 }
 window.$$ = $$;
 
@@ -44,14 +44,14 @@ export function $(s) {
 
   const ele =
     typeof s === "string"
-      ? document.querySelector(s)
+      ? [document.querySelector(s)]
       : s instanceof Element
-      ? s
+      ? [s]
       : error(s);
 
   if (!ele.length) error(s);
 
-  return applyMetodos(ele);
+  return aplicarMetodos(ele);
 }
 
 window.$ = $;
