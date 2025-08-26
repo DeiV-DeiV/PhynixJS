@@ -1,12 +1,10 @@
-
+// import { validate } from "./helpers/validaciones";
 
 export function Diffing(nodeReal, nodeVirtual) {
-  
 
-  if (nodeReal && !nodeVirtual) {
-    return nodeReal.remove();
-  }
+  if(nodeReal === nodeVirtual)return
 
+  // diferente nombre o tag
   if (
     nodeReal.nodeType !== nodeVirtual.nodeType ||
     nodeReal.nodeName !== nodeVirtual.nodeName
@@ -15,6 +13,7 @@ export function Diffing(nodeReal, nodeVirtual) {
     return;
   }
 
+  // Nodo de texto
   if (nodeReal.nodeType === Node.TEXT_NODE) {
     if (nodeReal.textContent !== nodeVirtual.textContent) {
       nodeReal.textContent = nodeVirtual.textContent;
@@ -22,7 +21,7 @@ export function Diffing(nodeReal, nodeVirtual) {
     return;
   }
 
-  //2 Sincronizamos atributos
+  // Sincronizamos atributos
   const realAttrs = [...nodeReal.attributes];
   const virtualAttrs = [...nodeVirtual.attributes];
 
@@ -40,7 +39,7 @@ export function Diffing(nodeReal, nodeVirtual) {
     }
   }
 
-  // 3 Sincronizar hijos
+  // Sincronizar hijos
   const realChildren = [...nodeReal.childNodes];
   const virtualChildren = [...nodeVirtual.childNodes];
   const nodeTotal = Math.max(realChildren.length, virtualChildren.length);
@@ -52,12 +51,9 @@ export function Diffing(nodeReal, nodeVirtual) {
     } else if (realChildren[i] && !virtualChildren[i]) {
       // Eliminamos nodo sobrante
       realChildren[i].remove();
-      i--; // Ajuste por eliminación
     } else if (realChildren[i] && virtualChildren[i]) {
       // Recursivo para actualizar hijos
       Diffing(realChildren[i], virtualChildren[i]);
     }
   }
 }
-
-//ejemplos de uso

@@ -6,17 +6,15 @@ import { validate } from "./helpers/validaciones.js";
 const componentsCargados = new Set();
 
 export function Component(
-  { selector = "body", method = "GET", template, script, style, data = {} },
+  { selector = "body", method = "GET", template, script, style, api = {} },
   { once = true } = {}
 ) {
   validate({
     string: [selector, method, template, script, style],
-    object: data,
+    object: api,
   });
 
   return async function () {
-    
-
     if (once && componentsCargados.has(template)) {
       return console.warn(`Componente cargado en el ${selector}...`);
     }
@@ -29,15 +27,19 @@ export function Component(
       const opts = {
         method: method,
       };
-
+      // ----------------------------template----------------------------
       const res = await fetch(`./components/${template}`, opts);
       const html = await res.text();
-      const _html = html.replace(
-        /{{(.*?)}}/g,
-        (_, key) => data[key.trim()] ?? ""
-      );
-      
-      self.insertAdjacentHTML('beforeend', _html)
+
+      // ----------------------api---------------------------
+      const resApi = await fetch(api);
+      const dataJson = await resApi.json();
+
+      const _html = dataJson.map((data) => {
+        html.replace(/{{(.*?)}}/g, (_, key) => data[key.trim()] ?? "");
+      }).join('');
+
+      self.insertAdjacentHTML("beforeend", _html);
 
       // Usar Diffing en lugar de insertAdjacentHTML
       // const virtualDOM = new DOMParser().parseFromString(
@@ -72,13 +74,15 @@ export function Component(
     } catch (rr) {
       const res = await fetch(`./components/error/error.html`);
       const html = await res.text();
+      const _html = html.replace(
+        /{{(.*?)}}/g,
+        (_, key) => api[key.trim()] ?? ""
+      );
 
       // Usar Diffing en lugar de insertAdjacentHTML
-      document.body.insertAdjacentHTML('beforeend',html)
+      document.body.insertAdjacentHTML("beforeend", _html);
     }
   };
 }
 // exportacion global
 window.Component = Component;
-
-
