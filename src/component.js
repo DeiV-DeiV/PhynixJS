@@ -6,12 +6,11 @@ import { validate } from "./helpers/validaciones.js";
 const componentsCargados = new Set();
 
 export function Component(
-  { selector = "body", method = "GET", template, script, style, api = {} },
+  { selector = "body", method = "GET", template, script, style, api },
   { once = true } = {}
 ) {
   validate({
-    string: [selector, method, template, script, style],
-    object: api,
+    string: [selector, method, template, script, style, api],
   });
 
   return async function () {
@@ -35,8 +34,8 @@ export function Component(
       const resApi = await fetch(api);
       const dataJson = await resApi.json();
 
-      const _html = dataJson.map((data) => {
-        html.replace(/{{(.*?)}}/g, (_, key) => data[key.trim()] ?? "");
+      const _html = dataJson.map((d) => {
+        html.replace(/{{(.*?)}}/g, (_, key) => d[key.trim()] ?? "");
       }).join('');
 
       self.insertAdjacentHTML("beforeend", _html);
