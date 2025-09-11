@@ -1,6 +1,7 @@
 // src/metodos/append.js
 
-import { validate } from "../helpers/validaciones.js";
+import { validate } from "../validate/validate.js";
+
 
 export function append(html) {
   validate({ string: html });

@@ -22,3 +22,6 @@ export function Shortcut(obj = {}) {
     }
   });
 }
+
+
+window.Shortcut = Shortcut

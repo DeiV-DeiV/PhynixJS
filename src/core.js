@@ -1,13 +1,10 @@
 // core.js
 // consume menos memoria, el punto es ese
 
-import {error} from './helpers/error.js'
-import {aplicarMetodos, applyMetodos} from './core/aplicarMetodos.js'
-import {aplicarProxy} from './core/aplicarProxy.js'
-import { On } from './metodosGlobales/On.js';
-
-
-
+import { error } from "./helpers/error.js";
+import { aplicarMetodos } from "./core/aplicarMetodos.js";
+// import {aplicarProxy} from './core/aplicarProxy.js'
+import { On } from "./metodosGlobales/On.js";
 
 const DEV_MODO = false; // usar FALSE para produccion
 
@@ -28,8 +25,7 @@ export function $$(s) {
 
   if (!ele.length) error(s);
 
-  
-  return aplicarMetodos(ele)
+  return aplicarMetodos(ele);
 }
 window.$$ = $$;
 
@@ -44,37 +40,20 @@ export function $(s) {
 
   const ele =
     typeof s === "string"
-      ? [document.querySelector(s)]
+      ? document.querySelector(s)
       : s instanceof Element
-      ? [s]
+      ? s
       : error(s);
-
-  if (!ele.length) error(s);
 
   return aplicarMetodos(ele);
 }
 
 window.$ = $;
 
-
-
-
-
 // Exportacion metodosGlobales |metodo y global|
-
 
 export const Click = (obj = {}) => On("click", obj);
 window.Click = Click;
 
 export const Input = (obj = {}) => On("input", obj);
 window.Input = Input;
-
-
-
-
-
-
-
-
-
-

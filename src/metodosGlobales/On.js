@@ -1,6 +1,6 @@
 // src/metodosGlobales/On.js
 
-import { validate } from "../helpers/validaciones.js";
+import { validate } from "../validate/validate.js";
 
 const eventosRegistrados = new Set();
 const mapeoEvents = {}; // { evento: { selector: callback } }
@@ -26,4 +26,4 @@ export function On(ev, obj) {
 }
 window.On = On;
 
-console.log("Mapeo de Eventos: \n", mapeoEvents);
+

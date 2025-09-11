@@ -1,6 +1,7 @@
 // metodos/css.js
 
-import { validate } from "../helpers/validaciones.js";
+import { validate } from "../validate/validate.js";
+
 
 export function css(style = {}) {
   validate({object:style})

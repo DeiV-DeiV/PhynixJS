@@ -1,0 +1,22 @@
+.validate,.formValidate{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
+.validate{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;    
+    
+}
+
+.formValidate{
+    background: rgba(255, 0, 0, 0.75);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.805); 
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+}
