@@ -1,10 +1,7 @@
 // metodos/post.js
 
 export async function post(template, body = {}) {
-  if (!template || typeof template !== "string") {
-    console.error("$.html(): Ruta inválida.");
-    return this;
-  }
+ 
 
   try {
     const opts = Object.freeze({

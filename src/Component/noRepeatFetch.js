@@ -1,5 +1,5 @@
-import { error404 } from "../components/error/404.js";
-
+import { formatError } from "../helpers/formatError.js";
+import { statusError } from "../helpers/statusError.js";
 
 export async function noRepeatFetch(path, method) {
   try {
@@ -14,15 +14,13 @@ export async function noRepeatFetch(path, method) {
     const url =  path.trim().startsWith('./') ? path : `./components/${path}`
     const res = await fetch(url, opts);
 
-    if (!res.ok) {
-      error404
-      return;
-    }
+    if (!res.ok) return statusError(res)
 
     const data = ext === "json" ? await res.json() : await res.text();
 
     return data;
   } catch (xx) {
-    console.error(xx);
+    console.error(xx)
+    // formatError(xx,{data,method})
   }
 }

@@ -28,7 +28,7 @@ export const metodos = Object.freeze({
   post,
 
   html(html) {
-    for (let el of this) el.innerHTML = html;
+    for (let el of this) el.insertAdjacentHTML('beforeend', html)
     return this;
   },
 
@@ -58,9 +58,13 @@ export const metodos = Object.freeze({
     for (let el of this) el.style.display = "none";
     return this;
   },
+  show() {
+  for (let el of this) el.style.display = '';
+  return this;
+},
 
-  val() {
-    for (let el of this) el.value;
+  val(val) {
+    for (let el of this) el.value=val;
     return this;
   },
 
