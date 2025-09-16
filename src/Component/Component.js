@@ -1,11 +1,10 @@
 // src/component.js
 
-
 import { Diffing } from "../diffing.js";
 import { createElement } from "../helpers/createElement.js";
 import { error } from "../helpers/error.js";
 import { formatError } from "../helpers/formatError.js";
-// import { validate } from "../validate/validate.js";
+
 import { noRepeatFetch } from "./noRepeatFetch.js";
 import { Template } from "./Template.js";
 
@@ -15,17 +14,14 @@ export function Component({
   template = "",
   script = "",
   style = "",
-  data = { url: "", limits: 15 },
+  data = "",
+  limits = 15,
   diffing = false,
 }) {
-  // validate({
-  //   string: [selector, method, template, script, style],
-  // });
-
   return async function () {
     const ctn = document.querySelector(selector);
-    if (!ctn) await error(selector);
-    
+    if (!ctn) return await error(selector);
+
     try {
       // ----------------------------template----------------------------
       const html = await noRepeatFetch(template);
@@ -34,18 +30,16 @@ export function Component({
       // ----------------------data---------------------------
 
       const dataJson =
-        typeof data.url === "string"
-          ? await noRepeatFetch(data.url, method)
-          : data.url;
+        typeof data === "string" ? await noRepeatFetch(data, method) : data;
 
       const renderHTML = render({
         data: dataJson,
-        limits: data.limits,
+        limits: limits,
       });
 
       //---------------- RENDER ------------------
 
-      if (!diffing || data.limits <= 15) {
+      if (!diffing || limits <= 15) {
         ctn.insertAdjacentHTML("beforeend", renderHTML);
       } else {
         Diffing(ctn, renderHTML);
@@ -54,22 +48,8 @@ export function Component({
       // ------------ CSS y JS ------------
 
       await createElement([style, script]);
-
-      
     } catch (xx) {
-      const errorData = formatError(xx, { data, method });
-      if (!template.includes("/error/")) {
-        Component({
-          template: "/error/error.html",
-          style: "/error/error.css",
-          data: {
-            url: errorData,
-          },
-        })();
-        return;
-      } else {
-        console.error("Error de Component", xx);
-      }
+      return formatError(xx, { data, method });
     }
   };
 }
