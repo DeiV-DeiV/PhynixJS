@@ -1,6 +1,6 @@
 // src/helpers/formatError.js
 
-import { Component } from "../Component/Component.js";
+import { Component } from "../modules/Component/Component.js";
 
 
 export function errorData(xx, { data, method }) {

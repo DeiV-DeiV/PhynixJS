@@ -1,4 +1,4 @@
-import {deepValue} from '../helpers/deepValue.js'
+import {deepValue} from '../../helpers/deepValue.js'
 import { getDataArray } from "./getDataArray.js";
 
 

@@ -1,12 +1,13 @@
 import { $, $$, Click, Input } from "./core.js";
-import { validate } from "./validate/validate.js";
-import { Component } from "./Component/Component.js";
 
 import { Drag } from "./metodosGlobales/Drag.js";
 import { Drop } from "./metodosGlobales/Drop.js";
 import { On } from "./metodosGlobales/On.js";
 import { Shortcut } from "./metodosGlobales/Shortcut.js";
-import { Rest } from "./Rest/Rest.js";
+
+import { apiRest } from "./modules/apiRest/apiRest.js";
+import { Component } from "./modules/Component/Component.js";
+import { validate } from "./modules/validate/validate.js";
 
 export {
   $$,
@@ -17,7 +18,8 @@ export {
   Drop,
   On,
   Shortcut,
-  Rest,
+  apiRest,
   Component,
 };
+
 export default $;

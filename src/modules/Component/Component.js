@@ -1,9 +1,9 @@
 // src/component.js
 
-import { Diffing } from "../diffing.js";
-import { createElement } from "../helpers/createElement.js";
-import { error } from "../helpers/error.js";
-import { formatError } from "../helpers/formatError.js";
+import { Diffing } from "./Diffing/Diffing.js";
+import { createElement } from "../../helpers/createElement.js";
+import { error } from "../../helpers/error.js"
+import { formatError } from "../../helpers/formatError.js";
 
 import { noRepeatFetch } from "./noRepeatFetch.js";
 import { Template } from "./Template.js";

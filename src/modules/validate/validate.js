@@ -1,4 +1,4 @@
-// src/validate/validaciones.js
+// src/modules/validate/validaciones.js
 
 import { Component } from "../Component/Component.js";
 import { validator } from "./validator.js";
@@ -10,7 +10,7 @@ export function validate(args = {}) {
     const value = args[key];
     const isInvalidate = fn(value);
 
-    if (isInvalidate) {
+    if (!isInvalidate) {
       const safeValue = value ?? " ";
       errorList.push({ msg, value: isInvalidate ? JSON.stringify(value):safeValue });
     }
