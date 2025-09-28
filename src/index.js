@@ -4,8 +4,9 @@ import { Drag } from "./metodosGlobales/Drag.js";
 import { Drop } from "./metodosGlobales/Drop.js";
 import { On } from "./metodosGlobales/On.js";
 import { Shortcut } from "./metodosGlobales/Shortcut.js";
+import { ajax } from "./modules/ajax/ajax.js";
 
-import { apiRest } from "./modules/apiRest/apiRest.js";
+
 import { Component } from "./modules/Component/Component.js";
 import { validate } from "./modules/validate/validate.js";
 
@@ -18,7 +19,8 @@ export {
   Drop,
   On,
   Shortcut,
-  apiRest,
+  ajax,
+  
   Component,
 };
 

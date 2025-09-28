@@ -1,18 +1,16 @@
-// src/modules/validate/validaciones.js
+// src/modules/validate/validate.js
 
 import { Component } from "../Component/Component.js";
 import { validator } from "./validator.js";
 
 export function validate(args = {}) {
-  let errorList = []; // acumulador en Array
+  let errorList = []; // acumulador de errores
 
   for (const [key, { fn, msg }] of Object.entries(validator)) {
     const value = args[key];
-    const isInvalidate = fn(value);
 
-    if (!isInvalidate) {
-      const safeValue = value ?? " ";
-      errorList.push({ msg, value: isInvalidate ? JSON.stringify(value):safeValue });
+    if (!fn(value)) {
+      errorList.push({ msg, value: JSON.stringify(value ?? " ") });
     }
   }
 

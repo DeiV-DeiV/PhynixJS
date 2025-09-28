@@ -13,6 +13,7 @@ export async function request( method, path, data, fn ) {
     }
     const json = await res.json();
     return fn ? fn(json) : json;
+    
   } catch (xx) {
     throw xx
   }
