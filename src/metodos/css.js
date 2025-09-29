@@ -1,15 +1,23 @@
 // metodos/css.js
 
-import { validate } from "../modules/validate/validate.js";
-
-
-
-export function css(style = {}) {
-  validate({object:style})
-  this._forEach((el) => {
-    for (let [prop, val] of Object.entries(style)) {
-      el.style[prop] = val;
+export function css(style) {
+  if (typeof style === "string" && style.endsWith(".css")) {
+    const ruta = style;
+    if (!document.querySelector(`link[href="${ruta}"]`)) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = ruta;
+      document.head.appendChild(link);
     }
-  });
-  return this;
+    return this;
+  }
+
+  if (typeof style === "object" && style !== null) {
+    this._forEach((el) => {
+      for (let [prop, val] of Object.entries(style)) {
+        el.style[prop] = val;
+      }
+    });
+    return this;
+  }
 }

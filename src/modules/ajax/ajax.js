@@ -8,3 +8,5 @@ export const ajax = Object.freeze({
 })
 
 window.ajax = ajax
+
+

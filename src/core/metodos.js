@@ -8,8 +8,8 @@ import { get } from "../metodos/get.js";
 import { post } from "../metodos/post.js";
 import { on } from "../metodos/on.js";
 import { append } from "../metodos/append.js";
-
-
+import { html } from "../metodos/html.js";
+import { js } from "../metodos/js.js";
 
 export const metodos = Object.freeze({
   _forEach,
@@ -20,17 +20,14 @@ export const metodos = Object.freeze({
   },
 
   toggleClass,
-  css,
   append,
   drag,
   on,
   get,
   post,
-
-  html(html) {
-    for (let el of this) el.insertAdjacentHTML('beforeend', html)
-    return this;
-  },
+  html,
+  css,
+  js,
 
   animate(animate) {
     for (let el of this) requestAnimationFrame(() => animate(el));
@@ -48,9 +45,9 @@ export const metodos = Object.freeze({
   },
 
   containsClass(classname) {
-    for (let el of this){
-      if(el.classList.contains(classname)) return true
-    };
+    for (let el of this) {
+      if (el.classList.contains(classname)) return true;
+    }
     return this;
   },
 
@@ -59,15 +56,12 @@ export const metodos = Object.freeze({
     return this;
   },
   show() {
-  for (let el of this) el.style.display = '';
-  return this;
-},
-
-  val(val) {
-    for (let el of this) el.value=val;
+    for (let el of this) el.style.display = "";
     return this;
   },
 
-
-
+  val(val) {
+    for (let el of this) el.value = val;
+    return this;
+  },
 });
