@@ -29,7 +29,7 @@ window.Slider = Slider
 //ejemplo de uso
 
 
-Slider(selector)
+
 
 
 
@@ -42,33 +42,33 @@ Slider(selector)
 
 
 //-------------------------------
-const allowdTags = [
-    'div','button'
-]
+// const allowdTags = [
+//     'div','button'
+// ]
 
-function _(tag, prop={}){
-    if(!allowdTags.includes(tag)) return console.log('Tag invalido...!!', `--> ${tag} <--`)
+// function _(tag, prop={}){
+//     if(!allowdTags.includes(tag)) return console.log('Tag invalido...!!', `--> ${tag} <--`)
     
-    const el = document.createElement(tag)
-     const props = Object.getOwnPropertyNames(el)
+//     const el = document.createElement(tag)
+//      const props = Object.getOwnPropertyNames(el)
 
-     for(const key of props){
-         return `
-         <label for="">${key}</label>
-            <input type="text" value="${el[key]}">
-         `
+//      for(const key of props){
+//          return `
+//          <label for="">${key}</label>
+//             <input type="text" value="${el[key]}">
+//          `
 
         
 
-     }
+//      }
 
-     return el
-}
+//      return el
+// }
 
-_('div',{
+// _('div',{
     
-    class:'',
-    src:'',
-    id:''
-    // ...etc
-})
+//     class:'',
+//     src:'',
+//     id:''
+//     // ...etc
+// })

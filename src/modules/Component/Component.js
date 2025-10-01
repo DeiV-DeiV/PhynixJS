@@ -7,7 +7,9 @@ import { formatError } from "../../helpers/formatError.js";
 
 import { noRepeatFetch } from "./noRepeatFetch.js";
 import { Template } from "./Template.js";
-import { $ } from "../jquery/jquery.js";
+import { createElement } from "../../helpers/createElement.js";
+
+
 
 
 export function Component({
@@ -21,14 +23,13 @@ export function Component({
   
 }) {
   return async function () {
-    const ctn = $(selector);
+    const ctn = document.querySelector(selector);
     if (!ctn) return await error(selector);
 
     try {
       // ----------------------------template----------------------------
-      const html =  ctn.html(template)
-      console.log(html)
-      // const html = await noRepeatFetch(template);
+      
+      const html = await noRepeatFetch(template);
       const render = Template(html);
 
       // ----------------------data---------------------------
@@ -51,8 +52,7 @@ export function Component({
 
       // ------------ CSS y JS ------------
 
-      if(style) ctn.css(style)
-      if(script) ctn.js(script)
+      createElement([style, script])
 
     } catch (xx) {
       return formatError(xx, { data, method });
