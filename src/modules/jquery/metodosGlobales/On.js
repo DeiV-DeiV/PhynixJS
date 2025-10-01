@@ -1,12 +1,13 @@
 // src/metodosGlobales/On.js
 
+import { validate } from "../../validate/validate";
 import { $ } from "../jquery";
 
 const eventosRegistrados = new Set();
 const mapeoEvents = {}; // { evento: { selector: callback } }
 
 export function On(ev, obj) {
-  
+  validate
   const eventos = (mapeoEvents[ev] ||= {});
 
   for (const selector in obj) {
