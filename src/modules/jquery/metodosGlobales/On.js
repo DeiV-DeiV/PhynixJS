@@ -20,7 +20,7 @@ export function On(ev, obj) {
 
   if (eventosRegistrados.has(ev)) return;
 
-  $("body").on(ev, function (e) {
+  document.body.addEventListener(ev, function (e) {
     for (const [selector, callback] of Object.entries(eventos)) {
       const target = e.target.closest(selector);
       if (target) {
