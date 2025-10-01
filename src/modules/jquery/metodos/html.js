@@ -10,7 +10,7 @@ export function html(html) {
         const text = await res.text();
         validate({ html: text });
         for (const el of this) el.insertAdjacentHTML("beforeend", text);
-        
+        return 
         
       } catch (xx) {
         console.error("Error al cargar HTML:", xx)
