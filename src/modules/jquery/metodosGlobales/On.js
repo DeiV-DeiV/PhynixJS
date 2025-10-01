@@ -1,7 +1,7 @@
 // src/metodosGlobales/On.js
 
 import { validate } from "../../validate/validate.js";
-import { $ } from "../jquery";
+
 
 const eventosRegistrados = new Set();
 const mapeoEvents = {}; // { evento: { selector: callback } }
