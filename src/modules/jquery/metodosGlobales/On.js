@@ -1,6 +1,7 @@
 // src/metodosGlobales/On.js
 
 import { validate } from "../../validate/validate.js";
+import { $ } from "../jquery.js";
 
 
 const eventosRegistrados = new Set();
@@ -22,7 +23,7 @@ export function On(ev, obj) {
 
   if (eventosRegistrados.has(ev)) return;
 
-  document.body.addEventListener(ev, function (e) {
+  $('body').on(ev, function (e) {
     for (const [selector, callback] of Object.entries(eventos)) {
       const target = e.target.closest(selector);
       if (target) {
