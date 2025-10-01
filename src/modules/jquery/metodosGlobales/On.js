@@ -7,7 +7,7 @@ const eventosRegistrados = new Set();
 const mapeoEvents = {}; // { evento: { selector: callback } }
 
 export function On(ev, obj) {
-  validate(o)
+  validate()
   const eventos = (mapeoEvents[ev] ||= {});
 
   for (const selector in obj) {
