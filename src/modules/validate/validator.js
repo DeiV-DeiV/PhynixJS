@@ -57,6 +57,11 @@ export const validator = Object.freeze({
       Array.isArray(v)
         ? v.every((el) => typeof el == "number")
         : typeof v == "number",
-    msg: "Esperando un número",
+    msg: "Esperando un numero",
   },
+
+  email:{
+    fn:()=>{},
+    msg:"Email invalido"
+  }
 });

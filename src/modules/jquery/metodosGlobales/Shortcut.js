@@ -1,4 +1,4 @@
-import { modsMap } from "../helpers/modsMap.js";
+import { modsMap } from "../../../helpers/modsMap.js";
 import { On } from "./On.js";
 
 export function Shortcut(obj = {}) {

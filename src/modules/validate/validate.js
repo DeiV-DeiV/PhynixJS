@@ -6,8 +6,9 @@ import { validator } from "./validator.js";
 export function validate(args = {}) {
   let errorList = []; // acumulador de errores
 
-  for (const [key, { fn, msg }] of Object.entries(validator)) {
-    const value = args[key];
+  for (const [key, value] of Object.entries(args)) {
+    if (!validator[key]) return;
+    const { fn, msg } = validator[key];
 
     if (!fn(value)) {
       errorList.push({ msg, value: JSON.stringify(value ?? " ") });

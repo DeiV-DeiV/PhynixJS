@@ -1,12 +1,14 @@
 // src/component.js
 
 import { Diffing } from "./Diffing/Diffing.js";
-import { createElement } from "../../helpers/createElement.js";
+
 import { error } from "../../helpers/error.js"
 import { formatError } from "../../helpers/formatError.js";
 
 import { noRepeatFetch } from "./noRepeatFetch.js";
 import { Template } from "./Template.js";
+import { $ } from "../jquery/jquery.js";
+
 
 export function Component({
   selector = "body",
@@ -16,15 +18,17 @@ export function Component({
   script = "",
   data = "",
   limits = 15,
-  diffing = false,
+  
 }) {
   return async function () {
-    const ctn = document.querySelector(selector);
+    const ctn = $(selector);
     if (!ctn) return await error(selector);
 
     try {
       // ----------------------------template----------------------------
-      const html = await noRepeatFetch(template);
+      const html =  $(selector).html(template)
+      console.log(html)
+      // const html = await noRepeatFetch(template);
       const render = Template(html);
 
       // ----------------------data---------------------------
@@ -39,7 +43,7 @@ export function Component({
 
       //---------------- RENDER ------------------
 
-      if (!diffing || limits <= 15) {
+      if (limits <= 15) {
         ctn.insertAdjacentHTML("beforeend", renderHTML);
       } else {
         Diffing(ctn, renderHTML);
@@ -47,7 +51,9 @@ export function Component({
 
       // ------------ CSS y JS ------------
 
-      await createElement([style, script]);
+      if(style) ctn.css(style)
+      if(script) ctn.js(script)
+
     } catch (xx) {
       return formatError(xx, { data, method });
     }

@@ -1,15 +1,15 @@
 // src/metodos.js
 
-import { _forEach } from "../metodos/_forEach.js";
-import { css } from "../metodos/css.js";
-import { toggleClass } from "../metodos/toggleClass.js";
-import { drag } from "../metodos/drag.js";
-import { get } from "../metodos/get.js";
-import { post } from "../metodos/post.js";
-import { on } from "../metodos/on.js";
-import { append } from "../metodos/append.js";
-import { html } from "../metodos/html.js";
-import { js } from "../metodos/js.js";
+import { _forEach } from "./metodos/_forEach.js";
+import { css } from "./metodos/css.js";
+import { toggleClass } from "./metodos/toggleClass.js";
+import { drag } from "./metodos/drag.js";
+import { get } from "./metodos/get.js";
+import { post } from "./metodos/post.js";
+import { on } from "./metodos/on.js";
+import { append } from "./metodos/append.js";
+import { html } from "./metodos/html.js";
+import { js } from "./metodos/js.js";
 
 export const metodos = Object.freeze({
   _forEach,
@@ -61,6 +61,7 @@ export const metodos = Object.freeze({
   },
 
   val(val) {
+    if(!val) el.val
     for (let el of this) el.value = val;
     return this;
   },

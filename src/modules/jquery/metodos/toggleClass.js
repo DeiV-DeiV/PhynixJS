@@ -1,5 +1,6 @@
 // src/metodos/toggleClass.js
-import { validate } from "../modules/validate/validate.js";
+import { validate } from "../../validate/validate.js";
+
 
 
 export function toggleClass(classname) {
