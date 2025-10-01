@@ -1,6 +1,5 @@
 import { On } from "./On";
 
-export function Input(obj = {}) {
-  On("input", obj);
-}
+export const Input=(obj = {})=> On("input", obj);
+
 window.Input = Input;
