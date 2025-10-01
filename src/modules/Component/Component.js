@@ -26,7 +26,7 @@ export function Component({
 
     try {
       // ----------------------------template----------------------------
-      const html =  $(selector).html(template)
+      const html =  ctn.html(template)
       console.log(html)
       // const html = await noRepeatFetch(template);
       const render = Template(html);
