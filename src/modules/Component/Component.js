@@ -24,7 +24,7 @@ export function Component({
   limit = 15,
   repeat=true,
 }) {
-  return ()=>{
+  return function(){
     const ctn = $(selector)
     ctn.html(template, {method, data, limit})
     ctn.css(style)
