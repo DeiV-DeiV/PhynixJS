@@ -1,14 +1,11 @@
 import { metodos } from "../modules/jquery/metodos.js";
 
 export function aplicarMetodos(el) {
-  if (!el || (typeof el !== "object" && typeof el !== "function")) {
-    console.warn("aplicarMetodos: elemento inválido", el);
-    return el; // devuelve tal cual para evitar el crash
-  }
-  // evita usar proxy
-  for (const metodo of Object.keys(metodos)) {
-    Object.defineProperty(el, metodo, {
-      value: metodos[metodo],
+  
+ 
+  for (const key of metodos) {
+    Object.defineProperty(el, key, {
+      value: metodos[key],
       writable: false,
       configurable: false,
       enumerable: false,
@@ -18,4 +15,8 @@ export function aplicarMetodos(el) {
   return el;
 }
 
-
+// function f_metodos(els){
+ //  for (const [key, value] of metodos) {
+        //els[key] = value
+ //  }
+// }

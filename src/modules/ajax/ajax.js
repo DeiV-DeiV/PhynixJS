@@ -10,3 +10,11 @@ export const ajax = Object.freeze({
 window.ajax = ajax
 
 
+function ax (s){
+  
+  return Object.freeze({
+
+  })
+}
+
+

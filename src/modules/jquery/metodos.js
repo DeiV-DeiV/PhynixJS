@@ -11,6 +11,8 @@ import { append } from "./metodos/append.js";
 import { html } from "./metodos/html.js";
 import { js } from "./metodos/js.js";
 
+
+
 export const metodos = Object.freeze({
   _forEach,
 

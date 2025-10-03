@@ -10,11 +10,11 @@ export function $$(s) {
 
   const ele =
     typeof s === "string"
-      ? [...document.querySelectorAll(s)]
+      ? document.querySelectorAll(s)
       : s instanceof Element
-      ? [s]
+      ? s
       : s instanceof NodeList || Array.isArray(s)
-      ? [...s]
+      ? s
       : error(s);
 
   if (!ele.length) error(s);
@@ -39,6 +39,6 @@ export function $(s) {
       ? s
       : error(s);
 
-  return aplicarMetodos(ele);
+  return aplicarMetodos([ele]);
 }
 window.$ = $;

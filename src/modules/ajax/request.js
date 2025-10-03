@@ -15,6 +15,6 @@ export async function request( method, path, data, fn ) {
     return fn ? fn(json) : json;
     
   } catch (xx) {
-    throw xx
+    console.log('Error request:', xx)
   }
 }
