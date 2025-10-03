@@ -27,7 +27,7 @@ export function Component({
   return async function(){
     try {
       
-    } catch (error) {
+    } catch (xx) {
       
     }
   }
