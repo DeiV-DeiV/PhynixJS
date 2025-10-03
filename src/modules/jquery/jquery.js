@@ -1,5 +1,5 @@
-import { aplicarMetodos } from "../../core/aplicarMetodos";
-import { error } from "../../helpers/error";
+import { aplicarMetodos } from "../../core/aplicarMetodos.js";
+import { error } from "../../helpers/error.js";
 
 
 export function $$(s) {
