@@ -14,7 +14,7 @@ export function html(template,{ method = "GET", data = null, limit = 15 } = {}) 
     try {
       // Obtener plantilla
       const text = template.endsWith(".html")
-          ? await (await fetch(`./components${template}`)).text()
+          ? await (await fetch(`./components/${template}`)).text()
           : template;
 
       validate({ html: text });
@@ -48,7 +48,7 @@ export function html(template,{ method = "GET", data = null, limit = 15 } = {}) 
           Diffing(el, finalHTML);
         }
       }
-      
+
       return this;
 
     } catch (xx) {
