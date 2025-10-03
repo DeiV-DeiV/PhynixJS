@@ -48,6 +48,7 @@ export function html(template,{ method = "GET", data = null, limit = 15 } = {}) 
           Diffing(el, finalHTML);
         }
       }
+      
       return this;
 
     } catch (xx) {
