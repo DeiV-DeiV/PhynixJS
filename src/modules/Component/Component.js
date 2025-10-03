@@ -24,11 +24,11 @@ export function Component({
   limit = 15,
   repeat=true,
 }) {
-  return function(){
+  return async function(){
     const ctn = $(selector)
-    ctn.html(template, {method, data, limit})
-    ctn.css(style)
-    ctn.js(script)
+    await ctn.html(template, {method, data, limit})
+    if(style) await ctn.css(style)
+    if(script) await ctn.js(script)
   }
 }
 

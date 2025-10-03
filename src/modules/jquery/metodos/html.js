@@ -4,7 +4,7 @@ import { Diffing } from "../../Component/Diffing/Diffing.js";
 import { validate } from "../../validate/validate.js";
 
 export function html(html, { method, data = null, limit = 15 } = {}) {
-  if (html.endsWith(".html")) {
+  if (typeof html === 'string' && html.endsWith(".html")) {
     (async () => {
       try {
         // Obtener plantilla
