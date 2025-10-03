@@ -1,16 +1,16 @@
-// src/modules/jquery/metodos/html.js
+// src/modules/jquery/metodos/template.js
 
 import { Diffing } from "../../Component/Diffing/Diffing.js";
 import { validate } from "../../validate/validate.js";
 
-export function html(html, { method, data = null, limit = 15 } = {}) {
-  if (typeof html === 'string' && html.endsWith(".html")) {
+export function html(template, { method, data = null, limit = 15 } = {}) {
+  if (typeof template === 'string' && template.endsWith(".template")) {
     (async () => {
       try {
         // Obtener plantilla
-        const res = await fetch(html);
+        const res = await fetch(template);
         const text = await res.text();
-        validate({ html: text });
+        validate({ template: text });
 
         // Obtener datos
         const json =
@@ -20,27 +20,27 @@ export function html(html, { method, data = null, limit = 15 } = {}) {
 
         // Reemplazar variables
         const parts = text.split(/{{\s*(.*?)\s*}}/g);
-        let finalHtml = "";
+        let finaltemplate = "";
         for (let i = 0; i < parts.length; i++) {
-          finalHtml += i % 2 === 0 ? parts[i] : json[parts[i]] ?? "";
+          finaltemplate += i % 2 === 0 ? parts[i] : json[parts[i]] ?? "";
         }
 
         for (const el of this) {
           if (limit <= 15) {
-            el.insertAdjacentHTML("beforeend", finalHtml);
+            el.insertAdjacenttemplate("beforeend", finaltemplate);
           } else {
-            Diffing(el, finalHtml);
+            Diffing(el, finaltemplate);
           }
         }
       } catch (xx) {
-        console.error("Error al cargar HTML:", xx);
+        console.error("Error al cargar template:", xx);
       }
     })();
   }
 
-  if (typeof html === "string") {
-    validate({ html });
-    for (let el of this) el.insertAdjacentHTML("beforeend", html);
+  if (typeof template === "string") {
+    validate({ template });
+    for (let el of this) el.insertAdjacenttemplate("beforeend", template);
   }
 
   return this;

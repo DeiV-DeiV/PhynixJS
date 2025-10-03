@@ -8,8 +8,9 @@ import { get } from "./metodos/get.js";
 import { post } from "./metodos/post.js";
 import { on } from "./metodos/on.js";
 import { append } from "./metodos/append.js";
-import { html } from "./metodos/html.js";
+
 import { js } from "./metodos/js.js";
+import { html } from "./metodos/html.js";
 
 
 
