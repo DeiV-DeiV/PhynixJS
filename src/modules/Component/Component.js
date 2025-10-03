@@ -26,8 +26,8 @@ export function Component({
     try {
       const ctn = $(selector);
       ctn.html(template, { method, data, limit });
-      if (style) ctn.css(style);
-      if (script) ctn.js(script);
+      ctn.css(style);
+      ctn.js(script);
     } catch (xx) {
       console.log('Error en Component:',xx);
     }
