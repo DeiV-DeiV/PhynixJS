@@ -26,7 +26,10 @@ export function Component({
 }) {
   return async function(){
     try {
-      
+      const ctn = $(selector)
+    await ctn.html(template, {method, data, limit})
+    if(style) await ctn.css(style)
+    if(script) await ctn.js(script)
     } catch (xx) {
       console.log(xx)
     }
