@@ -39,6 +39,6 @@ export function $(s) {
       ? s
       : error(s);
 
-  return aplicarMetodos(ele);
+  return aplicarMetodos([ele]);
 }
 window.$ = $;
