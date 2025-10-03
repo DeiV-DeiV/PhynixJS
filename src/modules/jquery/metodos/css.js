@@ -3,7 +3,7 @@
 export function css(style) {
   if (typeof style === "string" && style.endsWith(".css")) {
      
-    if (!document.querySelector(`link[href="${ruta}"]`)) {
+    if (!document.querySelector(`link[href="${style}"]`)) {
       const link = document.createElement("link");
       link.rel = "stylesheet";
       link.href = style;
