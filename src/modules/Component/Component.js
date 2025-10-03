@@ -20,7 +20,7 @@ export function Component({
   script = "",
   data = "",
   limit = 15,
-  repeat = true,
+  
 }) {
   return function () {
     try {

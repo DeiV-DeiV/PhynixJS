@@ -13,8 +13,7 @@ export function html(template,{ method = "GET", data = null, limit = 15 } = {}) 
   return (async () => {
     try {
       // Obtener plantilla
-      const text =
-        typeof template === "string" && template.endsWith(".template")
+      const text = template.endsWith(".html")
           ? await (await fetch(template)).text()
           : template;
 
@@ -50,8 +49,9 @@ export function html(template,{ method = "GET", data = null, limit = 15 } = {}) 
         }
       }
       return this;
+
     } catch (xx) {
-      console.error("Error al cargar template:", xx);
+      console.error("Error al cargar metodo .html :", xx);
     }
   })();
 
