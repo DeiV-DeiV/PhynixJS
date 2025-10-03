@@ -1,15 +1,16 @@
 // src/modules/jquery/metodos/template.js
 
-import { validate } from "../../validate/validate.js";
-import { getDataArray } from "../../../helpers/getDataArray.js";
 import { deepValue } from "../../../helpers/deepValue.js";
-import { Diffing } from "../../Component/Diffing/Diffing.js";
+import { getDataArray } from "../../../helpers/getDataArray.js";
+import { Diffing } from "../../Diffing/Diffing.js";
+import { validate } from "../../validate/validate.js";
 
-export function html(
-  template,
-  { method = "GET", data = null, limit = 15 } = {}
-) {
-  (async () => {
+
+
+export function html(template,{ method = "GET", data = null, limit = 15 } = {}) {
+  if (!template) for (const el of this) return el.innerHTML;
+
+  return (async () => {
     try {
       // Obtener plantilla
       const text =
@@ -17,7 +18,7 @@ export function html(
           ? await (await fetch(template)).text()
           : template;
 
-      validate({ template: text });
+      validate({ html: text });
 
       // Obtener datos
       const json =
