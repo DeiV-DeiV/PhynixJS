@@ -25,10 +25,7 @@ export function Component({
   repeat=true,
 }) {
   return async function(){
-    const ctn = $(selector)
-    await ctn.html(template, {method, data, limit})
-    if(style) await ctn.css(style)
-    if(script) await ctn.js(script)
+    
   }
 }
 
