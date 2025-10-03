@@ -3,7 +3,7 @@ import { metodos } from "../modules/jquery/metodos.js";
 export function aplicarMetodos(el) {
   
  
-  for (const key of metodos) {
+  for (const key of Object.keys(metodos)) {
     Object.defineProperty(el, key, {
       value: metodos[key],
       writable: false,
