@@ -1,6 +1,6 @@
 // src/component.js
 
-import { $ } from "../jquery/jquery.js"
+import { $ } from "../jquery/jquery.js";
 
 // import { Diffing } from "./Diffing/Diffing.js";
 
@@ -11,8 +11,6 @@ import { $ } from "../jquery/jquery.js"
 // import { Template } from "./Template.js";
 // import { createElement } from "../../helpers/createElement.js";
 
-
-
 // Component v2
 export function Component({
   selector = "body",
@@ -22,20 +20,19 @@ export function Component({
   script = "",
   data = "",
   limit = 15,
-  repeat=true,
+  repeat = true,
 }) {
-  return async function(){
+  return function () {
     try {
-      const ctn = $(selector)
-    await ctn.html(template, {method, data, limit})
-    if(style) await ctn.css(style)
-    if(script) await ctn.js(script)
+      const ctn = $(selector);
+      ctn.html(template, { method, data, limit });
+      if (style) ctn.css(style);
+      if (script) ctn.js(script);
     } catch (xx) {
-      console.log(xx)
+      console.log('Error en Component:',xx);
     }
-  }
+  };
 }
-
 
 // export function Component({
 //   selector = "body",
@@ -53,7 +50,7 @@ export function Component({
 
 //     try {
 //       // ----------------------------template----------------------------
-      
+
 //       const html = await noRepeatFetch(template);
 //       const render = Template(html);
 
