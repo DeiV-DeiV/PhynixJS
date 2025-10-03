@@ -25,7 +25,11 @@ export function Component({
   repeat=true,
 }) {
   return async function(){
-    
+    try {
+      
+    } catch (error) {
+      
+    }
   }
 }
 
