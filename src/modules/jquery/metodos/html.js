@@ -14,7 +14,7 @@ export function html(template,{ method = "GET", data = null, limit = 15 } = {}) 
     try {
       // Obtener plantilla
       const text = template.endsWith(".html")
-          ? await (await fetch(template)).text()
+          ? await (await fetch(`./components${template}`)).text()
           : template;
 
       validate({ html: text });
