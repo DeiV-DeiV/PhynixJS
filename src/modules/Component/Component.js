@@ -1,13 +1,17 @@
 // src/component.js
 
-import { Diffing } from "./Diffing/Diffing.js";
+import { $ } from "../jquery/jquery.js"
 
-import { error } from "../../helpers/error.js"
-import { formatError } from "../../helpers/formatError.js";
+// import { Diffing } from "./Diffing/Diffing.js";
 
-import { noRepeatFetch } from "./noRepeatFetch.js";
-import { Template } from "./Template.js";
-import { createElement } from "../../helpers/createElement.js";
+// import { error } from "../../helpers/error.js"
+// import { formatError } from "../../helpers/formatError.js";
+
+// import { noRepeatFetch } from "./noRepeatFetch.js";
+// import { Template } from "./Template.js";
+// import { createElement } from "../../helpers/createElement.js";
+
+
 
 // Component v2
 export function Component({
