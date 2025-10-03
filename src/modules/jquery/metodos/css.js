@@ -2,11 +2,14 @@
 
 export function css(style) {
   if (typeof style === "string" && style.endsWith(".css")) {
-     
-    if (!document.querySelector(`link[href="${style}"]`)) {
+     const ruta = 
+     style.startsWith('./') || style.startsWith('/') || style.startsWith('http')
+     ? style
+     : `./components/${style}`
+    if (!document.querySelector(`link[href="${ruta}"]`)) {
       const link = document.createElement("link");
       link.rel = "stylesheet";
-      link.href = style;
+      link.href = ruta;
       document.head.appendChild(link);
     }
     
