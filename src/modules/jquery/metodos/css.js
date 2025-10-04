@@ -6,6 +6,7 @@ export function css(style) {
      style.startsWith('./') || style.startsWith('/') || style.startsWith('http')
      ? style
      : `./components/${style}`
+     
     if (!document.querySelector(`link[href="${ruta}"]`)) {
       const link = document.createElement("link");
       link.rel = "stylesheet";
