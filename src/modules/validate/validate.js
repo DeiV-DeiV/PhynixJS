@@ -8,7 +8,8 @@ export function validate(args = {}) {
     let errorList = []; // acumulador de errores
 
   for (const [key, value] of Object.entries(args)) {
-    if (!validator[key]) return;
+    if (!validator[key]) throw new Error("Key Invalido");
+    
     const { fn, msg } = validator[key];
 
     if (!fn(value)) {
@@ -17,9 +18,9 @@ export function validate(args = {}) {
   }
 
   if (errorList.length > 0) {
-    document.querySelector(".validate")?.remove();
+    document.querySelector(".validate").remove();
 
-    return $formValidate(errorList);
+    return $formValidate(errorList)()
   }
   } catch (xx) {
     console.error('Error Validate:', xx)

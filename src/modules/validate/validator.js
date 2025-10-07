@@ -63,5 +63,10 @@ export const validator = Object.freeze({
   email:{
     fn:()=>{},
     msg:"Email invalido"
+  },
+  
+  password:{
+    fn:()=>{},
+    msg:"Password invalido"
   }
 });

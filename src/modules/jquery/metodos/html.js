@@ -5,17 +5,18 @@ import { getDataArray } from "../../../helpers/getDataArray.js";
 import { Diffing } from "../../Diffing/Diffing.js";
 import { validate } from "../../validate/validate.js";
 
-
-
-export function html(template,{ method = "GET", data = null, limit = 15 } = {}) {
+export function html(
+  template,
+  { method = "GET", data = null, limit = 15 } = {}
+) {
   if (!template) for (const el of this) return el.innerHTML;
 
   return (async () => {
     try {
       // Obtener plantilla
       const text = template.endsWith(".html")
-          ? await (await fetch(`./components/${template}`)).text()
-          : template;
+        ? await (await fetch(`./components/${template}`)).text()
+        : template;
 
       validate({ html: text });
 
@@ -41,6 +42,8 @@ export function html(template,{ method = "GET", data = null, limit = 15 } = {}) 
         }
       }
 
+      validate({ html: finalHTML });
+
       for (const el of this) {
         if (limit <= 15) {
           el.insertAdjacentHTML("beforeend", finalHTML);
@@ -50,10 +53,8 @@ export function html(template,{ method = "GET", data = null, limit = 15 } = {}) 
       }
 
       return this;
-
     } catch (xx) {
       console.error("Error al cargar metodo .html :", xx);
     }
   })();
-
 }
