@@ -24,9 +24,7 @@ export function validate(args = {}) {
       return false;
     }
   } catch (xx) {
-    console.error(
-      "Error Validate:", xx
-    );
+    console.error("Error Validate:", xx);
   }
 }
 
