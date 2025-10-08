@@ -18,7 +18,7 @@ export function validate(args = {}) {
   }
 
   if (errorList.length > 0) {
-    document.querySelector(".validate").remove();
+    document.querySelector(".validate")?.remove();
 
     return $formValidate(errorList)()
   }
