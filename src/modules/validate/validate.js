@@ -20,7 +20,6 @@ export function validate(args = {}) {
  
     const exist = document.querySelector('.validate')
     if(exist)exist.remove()
-      return true
   
 
   } catch (xx) {
