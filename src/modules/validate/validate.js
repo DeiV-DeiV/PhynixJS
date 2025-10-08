@@ -4,8 +4,8 @@ import { $formValidate } from "./validate.component.js";
 import { validator } from "./validator.js";
 
 export function validate(args = {}) {
+  let errorList = []; // acumulador de errores
   try {
-    let errorList = []; // acumulador de errores
 
   for (const [key, value] of Object.entries(args)) {
     if (!validator[key]) throw new Error("Key Invalido");
