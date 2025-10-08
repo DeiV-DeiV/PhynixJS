@@ -23,7 +23,7 @@ export function validate(args = {}) {
   
 
   } catch (xx) {
-    $formValidate(errorList)()
+    
     console.error('Error Validate:', (errorList.length > 0) ?$formValidate(errorList)(): xx)
   }
 
