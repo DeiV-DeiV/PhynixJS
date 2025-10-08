@@ -18,10 +18,12 @@ export function validate(args = {}) {
   }
 
   if (errorList.length > 0) {
-      return $formValidate(errorList)()
+      $formValidate(errorList)()
+      return false
   }else{
     const exist = document.querySelector('.validate')
     if(exist)exist.remove()
+      return true
   }
 
   } catch (xx) {
