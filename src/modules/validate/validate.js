@@ -20,7 +20,10 @@ export function validate(args = {}) {
     }
   }
 
- 
+ if (errorList.length > 0) {
+      $formValidate(errorList)();
+      return false;
+    }
     
 
   } catch (xx) {
