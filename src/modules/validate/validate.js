@@ -5,6 +5,9 @@ import { validator } from "./validator.js";
 
 export function validate(args = {}) {
   let errorList = []; // acumulador de errores
+  const exist = document.querySelector('.validate')
+    if(exist)exist.remove()
+  
   try {
 
   for (const [key, value] of Object.entries(args)) {
