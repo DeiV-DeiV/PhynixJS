@@ -1,6 +1,5 @@
 // src/modules/validate/validate.js
 
-import { formValidate } from "../../components/validate/validate.component.js";
 import { Component } from "../Component/Component.js";
 import { validator } from "./validator.js";
 
@@ -54,7 +53,7 @@ export const validate = (title = null, args = {}) => {
       </ul>
     </div>
             `,
-        style: "/validate/validate.css",
+        style: "validate/validate.css",
       })();
 
       Component({
@@ -68,7 +67,3 @@ export const validate = (title = null, args = {}) => {
 
 window.Validate = validate;
 
-// ejemplo de uso
-
-validate("Diffing", { node: "gg", string: 3 });
-validate("login", { node: "gg", number: 12 });
