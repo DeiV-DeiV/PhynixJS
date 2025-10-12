@@ -7,8 +7,8 @@ import { validate } from "../../validate/validate.js";
 const eventosRegistrados = new Set();
 const mapeoEvents = {}; // { evento: { selector: callback } }
 
-export function On(ev, obj) {
-  validate({object: obj})
+export function On(ev, obj = {}) {
+  validate('On',{object: obj})
   const eventos = (mapeoEvents[ev] ||= {});
 
   for (const selector in obj) {
@@ -26,9 +26,7 @@ export function On(ev, obj) {
   document.body.addEventListener(ev, function (e) {
     for (const [selector, callback] of Object.entries(eventos)) {
       const target = e.target.closest(selector);
-      if (target) {
-        callback.call(target, e);
-      }
+      if (target) callback.call(target, e);
     }
   });
 

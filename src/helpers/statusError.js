@@ -2,6 +2,8 @@
 
 import { Component } from "../modules/Component/Component.js";
 
+
+
 export function statusData(res) {
   return Object.freeze({
     status: res.status,

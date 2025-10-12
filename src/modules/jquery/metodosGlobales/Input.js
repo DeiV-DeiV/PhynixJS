@@ -1,4 +1,4 @@
-import { On } from "./On";
+import { On } from "./On.js";
 
 export const Input = (obj = {})=> On("input", obj);
 

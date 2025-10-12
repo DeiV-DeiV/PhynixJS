@@ -11,6 +11,7 @@ import { append } from "./metodos/append.js";
 
 import { js } from "./metodos/js.js";
 import { html } from "./metodos/html.js";
+import { load } from "./metodos/load.js";
 
 
 
@@ -29,6 +30,7 @@ export const metodos = Object.freeze({
   get,
   post,
   html,
+  load,
   css,
   js,
 

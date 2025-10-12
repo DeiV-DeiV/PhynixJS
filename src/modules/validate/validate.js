@@ -1,31 +1,74 @@
 // src/modules/validate/validate.js
 
-import { $formValidate } from "./validate.component.js";
+import { formValidate } from "../../components/validate/validate.component.js";
+import { Component } from "../Component/Component.js";
 import { validator } from "./validator.js";
 
-export function validate(args = {}) {
-  let errorList = []; // acumulador de errores
-  const exist = document.querySelector(".validate");
-  if (exist) exist.remove();
+export const errorMap = {
+  Diffing: [],
+  Login: [],
+  Singin: [],
+  Component: [],
+}; // acumulador de errores
 
-  try {
-    for (const [key, value] of Object.entries(args)) {
-      if (!validator[key]) throw new Error("Key Invalido");
+export const validate = (title = null, args = {}) => {
+  const argsMap = new WeakSet();
 
-      const { fn, msg } = validator[key];
+  return (function _validate() {
+    // recursividad controlada
+    if (argsMap.has(args)) return;
+    argsMap.add(args);
+
+    errorMap[title] = [];
+
+    const entries = Object.entries(args);
+
+    for (let i = 0; i < entries.length; i++) {
+      const [key, value] = entries[i];
+      const rule = Object.freeze(validator[key]); // inmutabilidad cuando se nesecite
+
+      if (!rule) throw new Error(`Key ${key} no existe..!!`);
+
+      const { fn, msg } = rule;
 
       if (!fn(value)) {
-        errorList.push({ msg, value: JSON.stringify(value ?? " ") });
+        errorMap[title].push({ msg, value });
+      }
+
+      if (validator.object.fn(value)) {
+        _validate(value); // recursividad
       }
     }
 
-    if (errorList.length > 0) {
-      $formValidate(errorList)();
-      return false;
+    if (errorMap[title].length > 0) {
+      const existe = document.querySelector(".validate");
+      if (existe) existe.remove();
+
+      Component({
+        template: `
+             <div class="validate glass">
+      <ul class="formValidate">
+          <h1>Error Validate:</h1>
+          
+          
+      </ul>
+    </div>
+            `,
+        style: "/validate/validate.css",
+      })();
+
+      Component({
+        selector: ".formValidate",
+        template: `<li>{{msg}}: {{value}}</li>`,
+        data: errorMap[title],
+      })();
     }
-  } catch (xx) {
-    console.error("Error Validate:", xx);
-  }
-}
+  })();
+};
 
 window.Validate = validate;
+
+// ejemplo de uso
+
+validate("Diffing", { node: "gg", string: 3 });
+validate("login", { node: "gg", number: 12 });

@@ -11,20 +11,18 @@ export function Component({
   script = "",
   data = "",
   limit = 15,
-  
 }) {
   return function () {
     try {
-      const ctn = $(selector);
-      ctn.html(template, { method, data, limit });
-      ctn.css(style);
-      ctn.js(script);
+      const ctn = $(selector)
+        ctn.html(template, { method, data, limit })
+        ctn.css(style)
+        ctn.js(script);
     } catch (xx) {
-      console.log('Error en Component:',xx);
+      console.log("Error Component:", xx);
     }
   };
 }
-
 
 // exportacion global
 window.Component = Component;

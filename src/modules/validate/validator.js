@@ -61,12 +61,16 @@ export const validator = Object.freeze({
   },
 
   email:{
-    fn:()=>{},
+    fn:(v)=>{
+      Array.isArray(v)
+      ? v.every(el=> el.includes('@gmail.com'))
+      : v.split('@gmail.com')
+    },
     msg:"Email invalido"
   },
   
   password:{
-    fn:()=>{},
+    fn:(v)=>{},
     msg:"Password invalido"
   }
 });

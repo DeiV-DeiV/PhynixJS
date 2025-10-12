@@ -6,9 +6,7 @@ import { path } from "../../../helpers/path.js";
 import { Diffing } from "../../Diffing/Diffing.js";
 import { validate } from "../../validate/validate.js";
 
-
-
-export function html(
+export function load(
   template,
   { method = "GET", data = null, limit = 15 } = {}
 ) {
@@ -21,30 +19,31 @@ export function html(
         ? await (await fetch(path(template))).text()
         : template;
 
-     
+      
 
       // Obtener datos
       const json =
         typeof data === "string" && data.endsWith(".json")
           ? await (await fetch(data, { method })).json()
           : data;
-          const arrayData = getDataArray(json);
-          const limitData = limit ? arrayData.slice(0, limit) : arrayData;
-          
-          // Reemplazar variables
-          const parts = text.split(/{{\s*(.*?)\s*}}/g);
-          let finalHTML = "";
-          
-          for (const item of limitData) {
-            for (let i = 0; i < parts.length; i++) {
-              finalHTML +=
-              i % 2 === 0
+
+      const arrayData = getDataArray(json);
+      const limitData = limit ? arrayData.slice(0, limit) : arrayData;
+
+      // Reemplazar variables
+      const parts = text.split(/{{\s*(.*?)\s*}}/g);
+      let finalHTML = "";
+
+      for (const item of limitData) {
+        for (let i = 0; i < parts.length; i++) {
+          finalHTML +=
+            i % 2 === 0
               ? parts[i] // text plane
               : deepValue(parts[i], item); // placeholders profundos
-            }
-          }
-          
-        validate('html',{html:finalHTML})
+        }
+      }
+
+      validate('load',{ html: finalHTML });
 
       for (const el of this) {
         if (limit <= 15) {

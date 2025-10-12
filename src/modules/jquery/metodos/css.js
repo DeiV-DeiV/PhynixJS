@@ -1,11 +1,10 @@
 // metodos/css.js
 
+import { path } from "../../../helpers/path.js";
+
 export function css(style) {
   if (typeof style === "string" && style.endsWith(".css")) {
-     const ruta = 
-     style.startsWith('./') || style.startsWith('/') || style.startsWith('http')
-     ? style
-     : `./components/${style}`
+     const ruta = path(style)
      
     if (!document.querySelector(`link[href="${ruta}"]`)) {
       const link = document.createElement("link");
