@@ -4,7 +4,7 @@ import { deepValue } from "../../../helpers/deepValue.js";
 import { getDataArray } from "../../../helpers/getDataArray.js";
 import { path } from "../../../helpers/path.js";
 import { Diffing } from "../../Diffing/Diffing.js";
-import { validate } from "../../validate/Validate.js";
+import { Validate } from "../../validate/Validate.js";
 
 
 
