@@ -58,7 +58,7 @@ export const Validate = (title = null, args = {}) => {
 
       Component({
         selector: ".formValidate",
-        template: `<li>{{}}{{msg}}: {{value}}</li>`,
+        template: `<li>{{}}->{{msg}}: {{value}}</li>`,
         data: errorMap[title],
       })();
     }
