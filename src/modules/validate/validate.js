@@ -31,7 +31,7 @@ export const Validate = (title = null, args = {}) => {
       const { fn, msg } = rule;
 
       if (!fn(value)) {
-        errorMap[title].push({ title: errorMap[title],msg, value });
+        errorMap[title].push({ title: errorMap[title], msg, value });
       }
 
       if (validator.object.fn(value)) {
