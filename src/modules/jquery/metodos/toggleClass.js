@@ -1,10 +1,10 @@
 // src/metodos/toggleClass.js
-import { validate } from "../../validate/validate.js";
+import { Validate } from "../../validate/Validate.js";
 
 
 
 export function toggleClass(classname) {
-  validate('toggleClass',{string:classname})
+  Validate('toggleClass',{string:classname})
   const clase = classname.trim().split(/\s+/);
   this._forEach((el) => {
     for (let cls of clase) el.classList.toggle(cls);

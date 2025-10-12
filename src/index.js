@@ -10,13 +10,13 @@ import { Input } from "./modules/jquery/metodosGlobales/Input.js";
 
 import { ajax } from "./modules/ajax/ajax.js";
 import { Component } from "./modules/Component/Component.js";
-import { validate } from "./modules/validate/validate.js";
+import { Validate } from "./modules/validate/Validate.js";
 
 export {
   $$,
   Click,
   Input,
-  validate,
+  Validate,
   Drag,
   Drop,
   On,

@@ -10,10 +10,10 @@ export const errorMap = {
   Component: [],
 }; // acumulador de errores
 
-export const validate = (title = null, args = {}) => {
+export const Validate = (title = null, args = {}) => {
   const argsMap = new WeakSet();
 
-  return (function _validate() {
+  return (function _Validate() {
     // recursividad controlada
     if (argsMap.has(args)) return;
     argsMap.add(args);
@@ -24,7 +24,7 @@ export const validate = (title = null, args = {}) => {
 
     for (let i = 0; i < entries.length; i++) {
       const [key, value] = entries[i];
-      const rule = Object.freeze(validator[key]); // inmutabilidad cuando se nesecite
+      const rule = Object.freeze(validator[key]); // inmutabilidad cuando entrees
 
       if (!rule) throw new Error(`Key ${key} no existe..!!`);
 
@@ -35,7 +35,7 @@ export const validate = (title = null, args = {}) => {
       }
 
       if (validator.object.fn(value)) {
-        _validate(value); // recursividad
+        _Validate(value); // recursividad
       }
     }
 
@@ -65,5 +65,5 @@ export const validate = (title = null, args = {}) => {
   })();
 };
 
-window.Validate = validate;
+window.Validate = Validate;
 

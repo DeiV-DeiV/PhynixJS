@@ -4,7 +4,7 @@ import { deepValue } from "../../../helpers/deepValue.js";
 import { getDataArray } from "../../../helpers/getDataArray.js";
 import { path } from "../../../helpers/path.js";
 import { Diffing } from "../../Diffing/Diffing.js";
-import { validate } from "../../validate/validate.js";
+import { validate } from "../../validate/Validate.js";
 
 
 
@@ -44,7 +44,7 @@ export function html(
             }
           }
           
-        validate('html',{html:finalHTML})
+        Validate('html',{html:finalHTML})
 
       for (const el of this) {
         if (limit <= 15) {
