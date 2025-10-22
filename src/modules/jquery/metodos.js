@@ -12,6 +12,7 @@ import { append } from "./metodos/append.js";
 import { js } from "./metodos/js.js";
 import { html } from "./metodos/html.js";
 import { load } from "./metodos/load.js";
+import { val } from "./metodos/val.js";
 
 
 
@@ -22,7 +23,7 @@ export const metodos = Object.freeze({
     for (let el of this) el.removeEventListener(ev, callback);
     return this;
   },
-
+  val,
   toggleClass,
   append,
   drag,

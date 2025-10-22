@@ -17,7 +17,7 @@ export function css(style) {
 
   if (typeof style === "object" && style !== null) {
     for(const el of this) {
-      for (let [prop, val] of Object.entries(style)) {
+      for (const [prop, val] of Object.entries(style)) {
         el.style[prop] = val;
       }
     };
