@@ -16,19 +16,12 @@ export function html(
     try {
       // Obtener plantilla
       //template.endsWith(".html")
-      let text = ''
+      let text = template.endsWith(".html")
+          ? await (await fetch(path(template))).text()
+          : template
+      
 
-      if (Array.isArray(template)) {
-        for (const tmp of template) {
-          tmp.endsWith(".html")
-          ?text += await (await fetch(path(tmp))).text()
-          :text +=  tmp
-        }
-      }else{
-        text += template
-      }
-
-      console.log(text)
+      
 
       // Obtener datos
       const json =
