@@ -6,45 +6,52 @@ import { path } from "../../../helpers/path.js";
 import { Diffing } from "../../Diffing/Diffing.js";
 import { Validate } from "../../validate/Validate.js";
 
-
-
 export function html(
   template,
   { method = "GET", data = null, limit = 15 } = {}
 ) {
-  if (template.trim().length == 0) for (const el of this) return el.innerHTML;
+  //if (!Array.isArray(template) || template.trim().length === 0) for (const el of this) return el.innerHTML;
 
   return (async () => {
     try {
       // Obtener plantilla
-      const text = template.endsWith(".html")
-        ? await (await fetch(path(template))).text()
-        : template;
+      //template.endsWith(".html")
+      let text = ''
 
-     
+      if (Array.isArray(template)) {
+        for (const tmp of template) {
+          tmp.endsWith(".html")
+          ?text += await (await fetch(path(tmp))).text()
+          :text +=  tmp
+        }
+      }else{
+        text += template
+      }
+
+      console.log(text)
 
       // Obtener datos
       const json =
         typeof data === "string" && data.endsWith(".json")
           ? await (await fetch(data, { method })).json()
           : data;
-          const arrayData = getDataArray(json);
-          const limitData = limit ? arrayData.slice(0, limit) : arrayData;
-          
-          // Reemplazar variables
-          const parts = text.split(/{{\s*(.*?)\s*}}/g);
-          let finalHTML = "";
-          
-          for (const item of limitData) {
-            for (let i = 0; i < parts.length; i++) {
-              finalHTML +=
-              i % 2 === 0
+      const arrayData = getDataArray(json);
+      const limitData = limit ? arrayData.slice(0, limit) : arrayData;
+
+      // Reemplazar variables
+      const parts = text.split(/{{\s*(.*?)\s*}}/g);
+      let finalHTML = "";
+
+      for (const item of limitData) {
+        for (let i = 0; i < parts.length; i++) {
+          finalHTML +=
+            i % 2 === 0
               ? parts[i] // text plane
               : deepValue(parts[i], item); // placeholders profundos
-            }
-          }
-          
-        Validate('html',{html:finalHTML})
+        }
+      }
+
+      Validate("html", { html: finalHTML });
 
       for (const el of this) {
         if (limit <= 15) {

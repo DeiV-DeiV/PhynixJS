@@ -29,8 +29,8 @@ export const validator = Object.freeze({
   string: {
     fn: (v) =>
       Array.isArray(v)
-        ? v.every((el) => typeof el == "string" && el.trim().length > 0)
-        : typeof v == "string" && v.trim().length > 0,
+        ? v.every((el) => typeof el === "string")
+        : typeof v === "string",
     msg: "No es un string valido",
   },
 
@@ -60,17 +60,23 @@ export const validator = Object.freeze({
     msg: "Esperando un numero",
   },
 
-  email:{
-    fn:(v)=>{
+  email: {
+    fn: (v) => {
       Array.isArray(v)
-      ? v.every(el=> el.includes('@gmail.com'))
-      : v.split('@gmail.com')
+        ? v.every((el) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el))
+        : /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
     },
-    msg:"Email invalido"
+    msg: "Email invalido",
   },
-  
-  password:{
-    fn:(v)=>{},
-    msg:"Password invalido"
-  }
+
+  password: {
+    fn: (v) => {
+      typeof v === "string" &&
+        v.length >= 8 &&
+        /[A-Z]/.test(v) &&
+        /[a-z]/.test(v) &&
+        /[0-9]/.test(v);
+    },
+    msg: "Password inválido (debe tener mayúsculas, minúsculas y números)",
+  },
 });
