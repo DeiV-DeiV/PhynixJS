@@ -19,35 +19,35 @@ export function Component({
   return function () {
     try {
       // Validate({string:[selector,method,template,style,script]})
-      const currentPath = window.location.pathname;
-      if (routerHistory.has(currentPath)) {
-        const cache = routerHistory.get(currentPath);
-        const ctn = $(cache.selector);
-        ctn.html(cache.template, {
-          method: cache.method,
-          data: cache.data,
-          limit: cache.limit,
-        });
-        Css(cache.style);
-        ctn.js(cache.script);
-        return
-      }
+      // const currentPath =router || window.location.pathname;
+      // if (routerHistory.has(currentPath)) {
+      //   const cache = routerHistory.get(currentPath);
+      //   const ctn = $(cache.selector);
+      //   ctn.html(cache.template, {
+      //     method: cache.method,
+      //     data: cache.data,
+      //     limit: cache.limit,
+      //   });
+      //   Css(cache.style);
+      //   ctn.js(cache.script);
+      //   return
+      // }
 
       const ctn = $(selector);
       ctn.html(template, { method, data, limit });
       Css(style);
       ctn.js(script);
 
-      routerHistory.set(currentPath, {
-        selector,
-        method,
-        router,
-        template,
-        style,
-        script,
-        data,
-        limit,
-      });
+      // routerHistory.set(currentPath, {
+      //   selector,
+      //   method,
+      //   router,
+      //   template,
+      //   style,
+      //   script,
+      //   data,
+      //   limit,
+      // });
     } catch (xx) {
       console.error("Error en Component:", xx);
     }

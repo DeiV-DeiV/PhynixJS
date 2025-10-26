@@ -15,13 +15,10 @@ export function html(
   return (async () => {
     try {
       // Obtener plantilla
-      
-      let text = template.endsWith(".html")
-          ? await (await fetch(path(template))).text()
-          : template
-      
 
-      
+      let text = template.endsWith(".html")
+        ? await (await fetch(path(template))).text()
+        : template;
 
       // Obtener datos
       const json =

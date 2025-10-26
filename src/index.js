@@ -12,6 +12,7 @@ import { Css } from "./modules/jquery/metodosGlobales/Css.js";
 import { ajax } from "./modules/ajax/ajax.js";
 import { Component } from "./modules/Component/Component.js";
 import { Validate } from "./modules/validate/Validate.js";
+import { Router } from "./modules/Router/Router.js";
 
 export {
   $$,
@@ -25,6 +26,7 @@ export {
   ajax,
   Css,
   Component,
+  Router,
 };
 
 export default $;

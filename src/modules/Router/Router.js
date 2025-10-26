@@ -16,8 +16,5 @@ export function Router(routers){
     
 }
 
-Router({
-  "/": "./pages/home.html",
-  "/about": "./pages/about.html"
-});
+window.Router = Router
 
