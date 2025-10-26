@@ -15,12 +15,17 @@ const template = `
 `;
 
 
-export const $Validate =  Component({
-    selector: "body",
-    template: [template, "<li>{{title}} → {{msg}}: {{value}}</li>"],
-    style: "./validate.css",
-    script: "",
+export const $Validate = ()=>{ 
+    Component({
+        template,
+        style: "./validate.css",
+    })()
+    
+    Component({
+    selector: ".formValidate",
+    template:  "<li>{{title}} → {{msg}}: {{value}}</li>",
+    
     data: [errorList],
-});
-
+})()
+}
 
