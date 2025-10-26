@@ -9,7 +9,7 @@ export function On(ev = "", obj = {}) {
     for (let i = 0; i < entries.length; i++) {
       const [selector, callback] = entries[i];
       const target = e.target.closest(selector);
-      if (target) callback.call($(target), e);
+      if (target) return callback.call($(target), e);
     }
   });
 }
