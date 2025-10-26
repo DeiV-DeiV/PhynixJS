@@ -1,6 +1,5 @@
 // src/metodosGlobales/On.js
 
-
 export function On(ev = "", obj = {}) {
   const entries = Object.entries(obj);
   document.body.addEventListener(ev, function (e) {
