@@ -1,6 +1,6 @@
 // src/metodosGlobales/On.js
 
-import { $ } from "../jquery";
+import { $ } from "../jquery.js";
 
 
 export function On(ev = "", obj = {}) {
