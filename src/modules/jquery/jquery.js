@@ -42,8 +42,5 @@ export function $(s) {
   return aplicarMetodos([ele]);
 }
 
-// Function warm-up (JIT optimization)
-for(let i = 0; i<10000;i++){
-  $(document.body)
-}
+
 window.$ = $;
