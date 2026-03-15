@@ -13,8 +13,8 @@ import { js } from "./metodos/js.js";
 import { html } from "./metodos/html.js";
 import { load } from "./metodos/load.js";
 import { val } from "./metodos/val.js";
-
-
+import { remove } from "./metodos/remove.js";
+import { click } from "./metodos/click.js";
 
 export const metodos = Object.freeze({
   _forEach,
@@ -23,6 +23,7 @@ export const metodos = Object.freeze({
     for (let el of this) el.removeEventListener(ev, callback);
     return this;
   },
+  click,
   val,
   toggleClass,
   append,
@@ -34,7 +35,7 @@ export const metodos = Object.freeze({
   load,
   css,
   js,
-
+  remove,
   animate(animate) {
     for (let el of this) requestAnimationFrame(() => animate(el));
     return this;
@@ -66,9 +67,5 @@ export const metodos = Object.freeze({
     return this;
   },
 
-  val(val) {
-    if(!val) el.val
-    for (let el of this) el.value = val;
-    return this;
-  },
+  
 });

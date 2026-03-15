@@ -15,17 +15,11 @@ const template = `
 `;
 
 
-export const $Validate = ()=>{ 
-    Component({
-        template,
-        style: "./validate.css",
-    })()
-    
-    Component({
+export const $Validate = Component({
     selector: ".formValidate",
     template:  "<li>{{title}} → {{msg}}: {{value}}</li>",
-    
+    style: "../../src/modules/validate/validate.css",
     data: [errorList],
-})()
-}
+})
+
 

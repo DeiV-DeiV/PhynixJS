@@ -1,13 +1,21 @@
 // src/metodos/toggleClass.js
-import { Validate } from "../../validate/Validate.js";
+
 
 export function toggleClass(classname) {
-  Validate('toggleClass',{string:classname})
-
-  const clase = classname.trim().split(/\s+/);
-  this._forEach((el) => {
-    for (let cls of clase) el.classList.toggle(cls);
-  });
   
+  
+  for (let i = 0; i < this.length; i++) {
+    const el = this[i]
+    if(classname === undefined){
+      el.hidden = !el.hidden;
+    }else{
+      const clases = classname.trim().split(/\s+/);
+      for (let t = 0; t < clases.length; t++) {
+      el.classList.toggle(clases[t]);
+      }
+
+    }
+  }
+
   return this;
 }

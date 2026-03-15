@@ -10,16 +10,16 @@ export function html(
   template,
   { method = "GET", data = null, limit = 15 } = {}
 ) {
-  //if (!Array.isArray(template) || template.trim().length === 0) for (const el of this) return el.innerHTML;
+  
 
   return (async () => {
     try {
       // Obtener plantilla
-
+    
       let text = template.endsWith(".html")
         ? await (await fetch(path(template))).text()
         : template;
-
+      
       // Obtener datos
       const json =
         typeof data === "string" && data.endsWith(".json")
@@ -41,7 +41,8 @@ export function html(
         }
       }
 
-      Validate("html", { html: finalHTML });
+
+      // Validate("html", { html: finalHTML }); 
 
       for (const el of this) {
         if (limit <= 15) {

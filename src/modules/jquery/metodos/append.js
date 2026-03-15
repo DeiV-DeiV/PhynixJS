@@ -1,8 +1,10 @@
 // src/metodos/append.js
 
 export function append(html) {
-  for (const el of this) {
-    el.insertAdjacentHTML("beforeend", html);
+  //Optimizacion
+  for(let i = 0; i < this.length;i++){
+    this[i].insertAdjacentHTML('beforeend', html)
   }
+
   return this;
 }

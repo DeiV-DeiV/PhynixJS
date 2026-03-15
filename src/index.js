@@ -7,6 +7,7 @@ import { Shortcut } from "./modules/jquery/metodosGlobales/Shortcut.js";
 import { Click } from "./modules/jquery/metodosGlobales/Click.js";
 import { Input } from "./modules/jquery/metodosGlobales/Input.js";
 import { Css } from "./modules/jquery/metodosGlobales/Css.js";
+import { Submit } from "./modules/jquery/metodosGlobales/Submit.js";
 
 
 import { ajax } from "./modules/ajax/ajax.js";
@@ -18,6 +19,7 @@ export {
   $$,
   Click,
   Input,
+  Submit,  
   Validate,
   Drag,
   Drop,

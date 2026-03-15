@@ -16,11 +16,15 @@ export function css(style) {
   }
 
   if (typeof style === "object" && style !== null) {
-    for(const el of this) {
-      for (const [prop, val] of Object.entries(style)) {
-        el.style[prop] = val;
+    //Optimizacion
+    const entries = Object.entries(style)
+    for(let i = 0;i<this.length;i++){
+      const el = this[i]
+      for(let j = 0;j<entries.length;j++){
+        const [prop, val] = entries[j]
+        el.style[prop] = val
       }
-    };
+    }
   
   }
 
